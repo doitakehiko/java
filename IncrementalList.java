@@ -14,7 +14,8 @@ public class IncrementalList {
 		File updFile = null;
 	        final String STR_USAGE = "Usage:java IncrementalList OriginalFilePath UpdateFilePath";
 	        final String STR_FILE_NOT_FOUND = " is not found.";
-	        final String strEncod = "utf-8";
+	        //final String strEncod = "utf-8";
+	        final String strEncod = "sjis";
 		String strOriginalPath = "";
 		String strUpdatePath = "";
 		List<String> list = new ArrayList<>();
