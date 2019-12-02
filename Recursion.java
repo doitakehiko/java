@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.ArrayList;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.util.Iterator;
 
 public class Recursion {
 	public static void main (String[] args) {
