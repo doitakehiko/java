@@ -11,7 +11,7 @@ public class Recursion {
 	public static void main (String[] args) {
 		String strPath = "";
 		File readFile = null;
-	        final String STR_USAGE = "Usage:java IncrementalList filename";
+	        final String STR_USAGE = "Usage:java Recursion filename";
 	        final String STR_FILE_NOT_FOUND = " is not found.";
 	        //final String strEncod = "utf-8";
 	        final String strEncod = "sjis";
