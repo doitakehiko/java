@@ -11,14 +11,14 @@ public class PrimeFactorization {
 		primeList[4] = 11;
 		primeList[5] = 13;
 		List<Integer> factors = new ArrayList<>();
-		int priveNum = 0;
+		int primeNum = 0;
 		if (num <= 1) {
 			return factors;
 		}
 		for (int i = 0; i < primeList.length ; i++) {
-			priveNum = primeList[i];
-			if (num % priveNum == 0) {
-				factors.add(priveNum);
+			primeNum = primeList[i];
+			if (num % primeNum == 0) {
+				factors.add(primeNum);
 			}
 		}
 		return factors;
