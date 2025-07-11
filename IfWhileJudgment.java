@@ -3,5 +3,7 @@ public class IfWhileJudgment {
 	if ( 0 ) {
 		System.out.println("compilation error");
 	}
+	while ( 0 ) {
+	}
     }
 }
