@@ -84,9 +84,9 @@ public class HealthManagement {
 			}
 
 			int[] updateCounts = pstmt.executeBatch();
-			connection.rollback(); // ロールバック
+//			connection.rollback(); // ロールバック
 
-//			connection.commit();
+			connection.commit();
 
 			System.out.println("挿入成功: " + updateCounts.length + "件");
 
