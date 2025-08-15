@@ -41,22 +41,20 @@ public class HealthManagement {
 			String line;
 			while ((line = reader.readLine()) != null) {
 			String[] stringArray = line.split(",");
-			for ( int i = 0; i < stringArray.length; i ++ ) {
-				   try {
-					String strDate = stringArray[RECORD_DATE_IDX];
-					SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd");
-					java.util.Date date = sdFormat.parse(strDate);
-					String str = new SimpleDateFormat("yyyy-MM-dd").format(date);
+			   try {
+				String strDate = stringArray[RECORD_DATE_IDX];
+				SimpleDateFormat sdFormat = new SimpleDateFormat("yyyy/MM/dd");
+				java.util.Date date = sdFormat.parse(strDate);
+				String str = new SimpleDateFormat("yyyy-MM-dd").format(date);
 
-					java.sql.Date sqlDate= java.sql.Date.valueOf(str);
-					record_dateList.add( sqlDate );
-					weightList.add( Double.parseDouble(stringArray[WEIGHT_IDX] ));
-					body_fatList.add( Double.parseDouble(stringArray[FAT_IDX] ));
-					skeletal_muscleList.add( Double.parseDouble(stringArray[MUSCLE_IDX] ));
-         
-				} catch (ParseException e) {
-					e.printStackTrace();
-				}
+				java.sql.Date sqlDate= java.sql.Date.valueOf(str);
+				record_dateList.add( sqlDate );
+				weightList.add( Double.parseDouble(stringArray[WEIGHT_IDX] ));
+				body_fatList.add( Double.parseDouble(stringArray[FAT_IDX] ));
+				skeletal_muscleList.add( Double.parseDouble(stringArray[MUSCLE_IDX] ));
+
+			} catch (ParseException e) {
+				e.printStackTrace();
 			}
 			
 		}
@@ -86,7 +84,9 @@ public class HealthManagement {
 			}
 
 			int[] updateCounts = pstmt.executeBatch();
-			connection.commit();
+			connection.rollback(); // ロールバック
+
+//			connection.commit();
 
 			System.out.println("挿入成功: " + updateCounts.length + "件");
 
