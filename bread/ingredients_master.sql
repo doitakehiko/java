@@ -38,3 +38,9 @@ begin
 end;
 
 alter trigger ingredients_master_trigger enable;
+
+
+INSERT INTO ingredients_master ( ingredients_name ) VALUES ('ディル');
+INSERT INTO ingredients_master ( ingredients_name ) VALUES ('サワークリーム');
+INSERT INTO ingredients_master ( ingredients_name ) VALUES ('スモークサーモン');
+SELECT * FROM ingredients_master;

@@ -39,3 +39,7 @@ begin
 end;
 
 alter trigger type_master_trigger enable;
+
+
+INSERT INTO type_master ( type_name ) VALUES ('ペストリー');
+SELECT * FROM TYPE_MASTER;

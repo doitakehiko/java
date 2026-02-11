@@ -1,0 +1,961 @@
+SQL> SET FEEDBACK ON;
+SQL> SET DEFINE OFF;
+SQL> 
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( '北朝鮮 (朝鮮民主主義人民共和国)' , 'Korea(Demo.)' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( '東ティモール' , 'East Timor' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( '台湾' , 'Taiwan' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( '香港' , 'Hong Kong' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'レバノン' , 'Lebanon' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ラオス' , 'Laos' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ヨルダン' , 'Jordan' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'モンゴル' , 'Mongolia' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'モルディブ' , 'Maldives' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'マカオ' , 'Macao' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ブルネイ' , 'Brunei' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ブータン' , 'Bhutan' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'バングラデシュ' , 'Bangladesh' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'パレスチナ' , 'Palestine' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'バーレーン' , 'Bahrain' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ネパール' , 'Nepal' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'シリア' , 'Syria' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'サウジアラビア' , 'Saudi Arabia' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'クウェート' , 'Kuwait' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'キプロス' , 'Cyprus' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'カンボジア' , 'Cambodia' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'カタール' , 'Qatar' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'オマーン' , 'Oman' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'イラク' , 'Iraq' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'イスラエル' , 'Israel' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'イエメン' , 'Yemen' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'アラブ首長国連邦' , 'U.A.E.' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( '日本' , 'Japan' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( '中国' , 'China' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( '韓国' , 'Korea(Rep. of)' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ミャンマー' , 'Myanmar' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'マレーシア' , 'Malaysia' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ベトナム' , 'Viet Nam' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'フィリピン' , 'Philippines' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'パキスタン' , 'Pakistan' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'タイ' , 'Thailand' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'スリランカ' , 'Sri Lanka' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'シンガポール' , 'Singapore' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'インドネシア' , 'Indonesia' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'インド' , 'India' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'イラン' , 'Iran' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'アフガニスタン' , 'Afghanistan' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( '南スーダン' , 'South Sudan' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( '中央アフリカ' , 'Central Africa' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( '赤道ギニア' , 'Equatorial Guinea' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'レユニオン' , 'Reunion' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'レソト' , 'Lesotho' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ルワンダ' , 'Rwanda' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'リベリア' , 'Liberia' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'リビア' , 'Libya' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'モロッコ' , 'Morocco' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'モザンビーク' , 'Mozambique' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'モーリタニア' , 'Mauritania' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'モーリシャス' , 'Mauritius' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'マリ' , 'Mali' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'マラウイ' , 'Malawi' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'マダガスカル' , 'Madagascar' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ボツワナ' , 'Botswana' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ベナン' , 'Benin' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ブルンジ' , 'Burundi' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ブルキナファソ' , 'Burkina Faso' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ニジェール' , 'Niger' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ナミビア' , 'Namibia' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ナイジェリア' , 'Nigeria' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'トーゴ' , 'Togo' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'チュニジア' , 'Tunisia' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'チャド' , 'Chad' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'タンザニア' , 'Tanzania' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ソマリア' , 'Somalia' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'セントヘレナ島' , 'St. Helena' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'セネガル' , 'Senegal' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'セーシェル' , 'Seychelles' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'スーダン' , 'Sudan' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ジンバブエ' , 'Zimbabwe' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ジブチ' , 'Djibouti' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'シエラレオネ' , 'Sierra Leone' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ザンビア' , 'Zambia' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'サントメ・プリンシペ' , 'Sao Tome & Principe' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'コンゴ民主共和国' , 'Congo (Demo.)' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'コンゴ' , 'Congo(Rep. of)' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'コモロ' , 'Comoros' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'コートジボワール' , 'Cote d''lvoire' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ケニア' , 'Kenya' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ギニアビサウ' , 'GuineaBissau' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ギニア' , 'Guinea' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ガンビア' , 'Gambia' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'カメルーン' , 'Cameroon' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ガボン' , 'Gabon' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'カーボベルデ' , 'Cape Verde' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ガーナ' , 'Ghana' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'エリトリア' , 'Eritrea' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'エチオピア' , 'Ethiopia' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'エスワティニ' , 'eSwatini' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ウガンダ' , 'Uganda' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'アンゴラ' , 'Angola' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'アルジェリア' , 'Algeria' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'アセンション島' , 'Ascension' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( '南アフリカ' , 'South Africa' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'エジプト' , 'Egypt' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'マルチニーク島' , 'Martinique' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ホンジュラス' , 'Honduras' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ボリビア' , 'Bolivia' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ベリーズ' , 'Belize' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'フランス領ギアナ' , 'French Guiana' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'フォークランド諸島' , 'Falkland Is.' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'パラグアイ' , 'Paraguay' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'パナマ' , 'Panama' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ハイチ' , 'Haiti' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ニカラグア' , 'Nicaragua' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'スリナム' , 'Suriname' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'サンピエール島・ミクロン島' , 'St. Pierre & Miquelo' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'コスタリカ' , 'Costa Rica' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'グアドループ島（仏領サン・マルタン、サン・バルテルミー島含む）' , 'Guadeloupe (inc. French St. Martin and St. Bart)' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'グアテマラ' , 'Guatemala' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ガイアナ' , 'Guyana' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'オランダ領アンティール' , 'Netherlands Antilles' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'エルサルバドル' , 'El Salvador' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'エクアドル' , 'Ecuador' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ウルグアイ' , 'Uruguay' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'アルバ' , 'Aruba' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'メキシコ' , 'Mexico' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ペルー' , 'Peru' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ベネズエラ' , 'Venezuela' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ブラジル' , 'Brazil' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'チリ' , 'Chile' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'コロンビア' , 'Colombia' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'キューバ' , 'Cuba' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'アルゼンチン' , 'Argentina' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'カナダ' , 'Canada' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'アメリカ (本土)' , 'U.S.A.' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ミクロネシア連邦' , 'Micronesia' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'マーシャル諸島' , 'Marshall Is.' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'フランス領ポリネシア' , 'French Polynesia' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'フィジー' , 'Fiji' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'パラオ' , 'Palau' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'パプアニューギニア' , 'Papua New Guinea' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'バヌアツ' , 'Vanuatu' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ノーフォーク島' , 'Norfolk Island' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ニューカレドニア' , 'New Caledonia' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ニウエ' , 'Niue' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ナウル' , 'Nauru' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'トンガ' , 'Tonga' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'トケラウ諸島' , 'Tokelau Islands' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ツバル' , 'Tuvalu' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ソロモン諸島' , 'Solomon Is.' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'サモア' , 'Samoa' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'クック諸島' , 'Cook Islands' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'キリバス' , 'Kiribati' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ニュージーランド' , 'New Zealand' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ココス諸島' , 'Cocos Keeling Is.' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'クリスマス島' , 'Christmas Is.' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'オーストラリア' , 'Australia' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( '北マケドニア' , 'North Macedonia' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ルクセンブルグ' , 'Luxembourg' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'リヒテンシュタイン' , 'Liechtenstein' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'リトアニア' , 'Lithuania' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ラトビア' , 'Latvia' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'モンテネグロ' , 'Montenegro' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'モルドバ' , 'Moldova' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'モナコ' , 'Monaco' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'マルタ' , 'Malta' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'マディラ諸島' , 'Madeira' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ポルトガル' , 'Portugal' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ボスニア・ヘルツェゴビナ' , 'Bosnia & Herzegovina' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ベラルーシ' , 'Belarus' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ブルガリア' , 'Bulgaria' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'フェロー諸島' , 'Faroe Islands' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'フィンランド' , 'Finland' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'トルクメニスタン' , 'Turkmenistan' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'チェコ' , 'Czech' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'タジキスタン' , 'Tadzhikistan' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'セルビア' , 'Serbia' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'スロベニア' , 'Slovenia' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'スロバキア' , 'Slovak' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ジョージア' , 'Georgia' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ジブラルタル' , 'Gibraltar' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'サンマリノ' , 'San Marino' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'コソボ' , 'Kosovo' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'クロアチア' , 'Croatia' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'グリーンランド' , 'Greenland' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'キルギスタン' , 'Kyrgyz Rep.' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'エストニア' , 'Estonia' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ウズベキスタン' , 'Uzbekistan' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ウクライナ' , 'Ukraine' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'アンドラ' , 'Andorra' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'アルメニア' , 'Armenia' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'アルバニア' , 'Albania' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'アゾレス諸島' , 'Azores Islands' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'アゼルバイジャン' , 'Azerbaidjan' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'アイルランド' , 'Ireland' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'アイスランド' , 'Iceland' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ルーマニア' , 'Romania' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ポーランド' , 'Poland' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ベルギー' , 'Belgium' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'フランス' , 'France' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ハンガリー' , 'Hungary' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'バチカン' , 'Vatican City' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ノルウェー' , 'Norway' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'トルコ' , 'Turkey' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ドイツ' , 'Germany' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'デンマーク' , 'Denmark' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'スペイン領北アフリカ' , 'Spanish North Africa' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'スペイン' , 'Spain' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'スウェーデン' , 'Sweden' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'スイス' , 'Switzerland' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ギリシア' , 'Greece' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'カナリア諸島' , 'Canary Islands' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'オランダ' , 'Netherlands' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'オーストリア' , 'Austria' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'イタリア' , 'Italy' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'イギリス' , 'U.K.' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ロシア連邦' , 'Russian Fed.' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'カザフスタン' , 'Kazakhstan' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'スラーヤーテレコム' , 'Thuraya Satellite' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ドミニカ共和国' , 'Dominican Rep.' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'プエルトリコ' , 'Puerto Rico' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ジャマイカ' , 'Jamaica' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( '米領バージン諸島' , 'American Virgin Is.' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( '英領バージン諸島' , 'British Virgin Is.' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'モンセラット' , 'Montserrat' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'バルバドス' , 'Barbados' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'バミューダ諸島' , 'Bermuda' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'バハマ' , 'Bahamas' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'トリニダード・トバゴ' , 'Trinidad & Tobago' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ドミニカ' , 'Dominica' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'タークス諸島・カイコス諸島' , 'Turks & Caicos Is.' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'セントルシア' , 'St. Lucia' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'セントビンセントおよびグレナディーン諸島' , 'St. Vincent & the Gr' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'セントクリストファー・ネイビス' , 'St. Christopher & Ne' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'シント・マールテン' , 'Saint Martin' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ケイマン諸島' , 'Cayman Islands' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'グレナダ' , 'Grenada' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'アンティグア・バーブーダ' , 'Antigua & Barbuda' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'アンギラ' , 'Anguilla' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'アラスカ' , 'Alaska' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( '米領サモア' , 'American Samoa' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'ハワイ' , 'Hawaii' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'サイパン' , 'Saipan' );
+
+1行が作成されました。
+
+SQL> insert into country_master　(country_name_jp  , country_name_en  ) values ( 'グアム' , 'Guam' );
+
+1行が作成されました。
+
+SQL> 
+SQL> SPOOL OFF;

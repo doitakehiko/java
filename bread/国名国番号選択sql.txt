@@ -1,3 +1,2 @@
-select country_name_jp, COUNTRY_CODE from country_master, country_code_master where country_master.id = country_code_master.country_master_id;
-
- and country_code_master.country_master_id = 2585;
+select country_name_jp, COUNTRY_CODE from country_master, country_code_master where country_master.id = country_code_master.country_master_id
+ and country_code_master.country_master_id = 218;

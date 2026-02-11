@@ -42,3 +42,7 @@ begin
 end;
 
 alter trigger sandwich_master_trigger enable;
+
+
+INSERT INTO sandwich_master ( sandwich_name, type_id ) VALUES ('ヨークシャー・プディング・スモークサーモン・オープンサンドイッチ', 1);
+SELECT * FROM sandwich_master;

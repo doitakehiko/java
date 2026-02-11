@@ -40,3 +40,7 @@ begin
 end;
 
 alter trigger bread_name_trigger enable;
+
+
+INSERT INTO bread_name_master ( bread_name ) VALUES ('ヨークシャー・プディング');
+SELECT * FROM bread_name_master;
