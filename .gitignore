@@ -1,0 +1,6 @@
+#パスワード入りファイル
+DoConnection.java
+
+#classファイルは無視
+*.class
+

@@ -1,0 +1,1612 @@
+SQL> SET TERMOUT OFF;
+SQL> SET ECHO ON;
+SQL> SET FEEDBACK ON;
+SQL> SET DEFINE OFF;
+SQL> 
+SQL> 
+SQL> 
+SQL> insert into country_code_master ( country_code ) values ( 850 );
+insert into country_code_master ( country_code ) values ( 850 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 670 );
+insert into country_code_master ( country_code ) values ( 670 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 886 );
+insert into country_code_master ( country_code ) values ( 886 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 852 );
+insert into country_code_master ( country_code ) values ( 852 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 961 );
+insert into country_code_master ( country_code ) values ( 961 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 856 );
+insert into country_code_master ( country_code ) values ( 856 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 962 );
+insert into country_code_master ( country_code ) values ( 962 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 976 );
+insert into country_code_master ( country_code ) values ( 976 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 960 );
+insert into country_code_master ( country_code ) values ( 960 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 853 );
+insert into country_code_master ( country_code ) values ( 853 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 673 );
+insert into country_code_master ( country_code ) values ( 673 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 975 );
+insert into country_code_master ( country_code ) values ( 975 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 880 );
+insert into country_code_master ( country_code ) values ( 880 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 970 );
+insert into country_code_master ( country_code ) values ( 970 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 973 );
+insert into country_code_master ( country_code ) values ( 973 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 977 );
+insert into country_code_master ( country_code ) values ( 977 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 963 );
+insert into country_code_master ( country_code ) values ( 963 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 966 );
+insert into country_code_master ( country_code ) values ( 966 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 965 );
+insert into country_code_master ( country_code ) values ( 965 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 357 );
+insert into country_code_master ( country_code ) values ( 357 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 855 );
+insert into country_code_master ( country_code ) values ( 855 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 974 );
+insert into country_code_master ( country_code ) values ( 974 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 968 );
+insert into country_code_master ( country_code ) values ( 968 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 964 );
+insert into country_code_master ( country_code ) values ( 964 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 972 );
+insert into country_code_master ( country_code ) values ( 972 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 967 );
+insert into country_code_master ( country_code ) values ( 967 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 971 );
+insert into country_code_master ( country_code ) values ( 971 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 81 );
+insert into country_code_master ( country_code ) values ( 81 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 86 );
+insert into country_code_master ( country_code ) values ( 86 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 82 );
+insert into country_code_master ( country_code ) values ( 82 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 95 );
+insert into country_code_master ( country_code ) values ( 95 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 60 );
+insert into country_code_master ( country_code ) values ( 60 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 84 );
+insert into country_code_master ( country_code ) values ( 84 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 63 );
+insert into country_code_master ( country_code ) values ( 63 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 92 );
+insert into country_code_master ( country_code ) values ( 92 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 66 );
+insert into country_code_master ( country_code ) values ( 66 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 94 );
+insert into country_code_master ( country_code ) values ( 94 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 65 );
+insert into country_code_master ( country_code ) values ( 65 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 62 );
+insert into country_code_master ( country_code ) values ( 62 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 91 );
+insert into country_code_master ( country_code ) values ( 91 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 98 );
+insert into country_code_master ( country_code ) values ( 98 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 93 );
+insert into country_code_master ( country_code ) values ( 93 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 211 );
+insert into country_code_master ( country_code ) values ( 211 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 236 );
+insert into country_code_master ( country_code ) values ( 236 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 240 );
+insert into country_code_master ( country_code ) values ( 240 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 262 );
+insert into country_code_master ( country_code ) values ( 262 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 266 );
+insert into country_code_master ( country_code ) values ( 266 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 250 );
+insert into country_code_master ( country_code ) values ( 250 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 231 );
+insert into country_code_master ( country_code ) values ( 231 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 218 );
+insert into country_code_master ( country_code ) values ( 218 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 212 );
+insert into country_code_master ( country_code ) values ( 212 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 258 );
+insert into country_code_master ( country_code ) values ( 258 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 222 );
+insert into country_code_master ( country_code ) values ( 222 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 230 );
+insert into country_code_master ( country_code ) values ( 230 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 223 );
+insert into country_code_master ( country_code ) values ( 223 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 265 );
+insert into country_code_master ( country_code ) values ( 265 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 261 );
+insert into country_code_master ( country_code ) values ( 261 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 267 );
+insert into country_code_master ( country_code ) values ( 267 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 229 );
+insert into country_code_master ( country_code ) values ( 229 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 257 );
+insert into country_code_master ( country_code ) values ( 257 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 226 );
+insert into country_code_master ( country_code ) values ( 226 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 227 );
+insert into country_code_master ( country_code ) values ( 227 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 264 );
+insert into country_code_master ( country_code ) values ( 264 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 234 );
+insert into country_code_master ( country_code ) values ( 234 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 228 );
+insert into country_code_master ( country_code ) values ( 228 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 216 );
+insert into country_code_master ( country_code ) values ( 216 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 235 );
+insert into country_code_master ( country_code ) values ( 235 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 255 );
+insert into country_code_master ( country_code ) values ( 255 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 252 );
+insert into country_code_master ( country_code ) values ( 252 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 290 );
+insert into country_code_master ( country_code ) values ( 290 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 221 );
+insert into country_code_master ( country_code ) values ( 221 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 248 );
+insert into country_code_master ( country_code ) values ( 248 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 249 );
+insert into country_code_master ( country_code ) values ( 249 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 263 );
+insert into country_code_master ( country_code ) values ( 263 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 253 );
+insert into country_code_master ( country_code ) values ( 253 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 232 );
+insert into country_code_master ( country_code ) values ( 232 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 260 );
+insert into country_code_master ( country_code ) values ( 260 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 239 );
+insert into country_code_master ( country_code ) values ( 239 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 243 );
+insert into country_code_master ( country_code ) values ( 243 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 242 );
+insert into country_code_master ( country_code ) values ( 242 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 269 );
+insert into country_code_master ( country_code ) values ( 269 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 225 );
+insert into country_code_master ( country_code ) values ( 225 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 254 );
+insert into country_code_master ( country_code ) values ( 254 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 245 );
+insert into country_code_master ( country_code ) values ( 245 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 224 );
+insert into country_code_master ( country_code ) values ( 224 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 220 );
+insert into country_code_master ( country_code ) values ( 220 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 237 );
+insert into country_code_master ( country_code ) values ( 237 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 241 );
+insert into country_code_master ( country_code ) values ( 241 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 238 );
+insert into country_code_master ( country_code ) values ( 238 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 233 );
+insert into country_code_master ( country_code ) values ( 233 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 291 );
+insert into country_code_master ( country_code ) values ( 291 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 251 );
+insert into country_code_master ( country_code ) values ( 251 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 268 );
+insert into country_code_master ( country_code ) values ( 268 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 256 );
+insert into country_code_master ( country_code ) values ( 256 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 244 );
+insert into country_code_master ( country_code ) values ( 244 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 213 );
+insert into country_code_master ( country_code ) values ( 213 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 247 );
+insert into country_code_master ( country_code ) values ( 247 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 27 );
+insert into country_code_master ( country_code ) values ( 27 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 20 );
+insert into country_code_master ( country_code ) values ( 20 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 596 );
+insert into country_code_master ( country_code ) values ( 596 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 504 );
+insert into country_code_master ( country_code ) values ( 504 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 591 );
+insert into country_code_master ( country_code ) values ( 591 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 501 );
+insert into country_code_master ( country_code ) values ( 501 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 594 );
+insert into country_code_master ( country_code ) values ( 594 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 500 );
+insert into country_code_master ( country_code ) values ( 500 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 595 );
+insert into country_code_master ( country_code ) values ( 595 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 507 );
+insert into country_code_master ( country_code ) values ( 507 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 509 );
+insert into country_code_master ( country_code ) values ( 509 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 505 );
+insert into country_code_master ( country_code ) values ( 505 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 597 );
+insert into country_code_master ( country_code ) values ( 597 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 508 );
+insert into country_code_master ( country_code ) values ( 508 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 506 );
+insert into country_code_master ( country_code ) values ( 506 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 590 );
+insert into country_code_master ( country_code ) values ( 590 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 502 );
+insert into country_code_master ( country_code ) values ( 502 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 592 );
+insert into country_code_master ( country_code ) values ( 592 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 599 );
+insert into country_code_master ( country_code ) values ( 599 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 503 );
+insert into country_code_master ( country_code ) values ( 503 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 593 );
+insert into country_code_master ( country_code ) values ( 593 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 598 );
+insert into country_code_master ( country_code ) values ( 598 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 297 );
+insert into country_code_master ( country_code ) values ( 297 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 52 );
+insert into country_code_master ( country_code ) values ( 52 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 51 );
+insert into country_code_master ( country_code ) values ( 51 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 58 );
+insert into country_code_master ( country_code ) values ( 58 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 55 );
+insert into country_code_master ( country_code ) values ( 55 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 56 );
+insert into country_code_master ( country_code ) values ( 56 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 57 );
+insert into country_code_master ( country_code ) values ( 57 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 53 );
+insert into country_code_master ( country_code ) values ( 53 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 54 );
+insert into country_code_master ( country_code ) values ( 54 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 1 );
+insert into country_code_master ( country_code ) values ( 1 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 691 );
+insert into country_code_master ( country_code ) values ( 691 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 692 );
+insert into country_code_master ( country_code ) values ( 692 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 689 );
+insert into country_code_master ( country_code ) values ( 689 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 679 );
+insert into country_code_master ( country_code ) values ( 679 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 680 );
+insert into country_code_master ( country_code ) values ( 680 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 675 );
+insert into country_code_master ( country_code ) values ( 675 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 678 );
+insert into country_code_master ( country_code ) values ( 678 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 672 );
+insert into country_code_master ( country_code ) values ( 672 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 687 );
+insert into country_code_master ( country_code ) values ( 687 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 683 );
+insert into country_code_master ( country_code ) values ( 683 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 674 );
+insert into country_code_master ( country_code ) values ( 674 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 676 );
+insert into country_code_master ( country_code ) values ( 676 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 690 );
+insert into country_code_master ( country_code ) values ( 690 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 688 );
+insert into country_code_master ( country_code ) values ( 688 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 677 );
+insert into country_code_master ( country_code ) values ( 677 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 685 );
+insert into country_code_master ( country_code ) values ( 685 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 682 );
+insert into country_code_master ( country_code ) values ( 682 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 686 );
+insert into country_code_master ( country_code ) values ( 686 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 64 );
+insert into country_code_master ( country_code ) values ( 64 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 61 );
+insert into country_code_master ( country_code ) values ( 61 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 389 );
+insert into country_code_master ( country_code ) values ( 389 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 352 );
+insert into country_code_master ( country_code ) values ( 352 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 423 );
+insert into country_code_master ( country_code ) values ( 423 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 370 );
+insert into country_code_master ( country_code ) values ( 370 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 371 );
+insert into country_code_master ( country_code ) values ( 371 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 382 );
+insert into country_code_master ( country_code ) values ( 382 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 373 );
+insert into country_code_master ( country_code ) values ( 373 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 377 );
+insert into country_code_master ( country_code ) values ( 377 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 356 );
+insert into country_code_master ( country_code ) values ( 356 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 351 );
+insert into country_code_master ( country_code ) values ( 351 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 387 );
+insert into country_code_master ( country_code ) values ( 387 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 375 );
+insert into country_code_master ( country_code ) values ( 375 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 359 );
+insert into country_code_master ( country_code ) values ( 359 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 298 );
+insert into country_code_master ( country_code ) values ( 298 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 358 );
+insert into country_code_master ( country_code ) values ( 358 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 993 );
+insert into country_code_master ( country_code ) values ( 993 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 420 );
+insert into country_code_master ( country_code ) values ( 420 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 992 );
+insert into country_code_master ( country_code ) values ( 992 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 381 );
+insert into country_code_master ( country_code ) values ( 381 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 386 );
+insert into country_code_master ( country_code ) values ( 386 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 421 );
+insert into country_code_master ( country_code ) values ( 421 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 995 );
+insert into country_code_master ( country_code ) values ( 995 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 350 );
+insert into country_code_master ( country_code ) values ( 350 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 378 );
+insert into country_code_master ( country_code ) values ( 378 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 383 );
+insert into country_code_master ( country_code ) values ( 383 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 385 );
+insert into country_code_master ( country_code ) values ( 385 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 299 );
+insert into country_code_master ( country_code ) values ( 299 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 996 );
+insert into country_code_master ( country_code ) values ( 996 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 372 );
+insert into country_code_master ( country_code ) values ( 372 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 998 );
+insert into country_code_master ( country_code ) values ( 998 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 380 );
+insert into country_code_master ( country_code ) values ( 380 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 376 );
+insert into country_code_master ( country_code ) values ( 376 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 374 );
+insert into country_code_master ( country_code ) values ( 374 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 355 );
+insert into country_code_master ( country_code ) values ( 355 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 994 );
+insert into country_code_master ( country_code ) values ( 994 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 353 );
+insert into country_code_master ( country_code ) values ( 353 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 354 );
+insert into country_code_master ( country_code ) values ( 354 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 40 );
+insert into country_code_master ( country_code ) values ( 40 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 48 );
+insert into country_code_master ( country_code ) values ( 48 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 32 );
+insert into country_code_master ( country_code ) values ( 32 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 33 );
+insert into country_code_master ( country_code ) values ( 33 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 36 );
+insert into country_code_master ( country_code ) values ( 36 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 39 );
+insert into country_code_master ( country_code ) values ( 39 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 47 );
+insert into country_code_master ( country_code ) values ( 47 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 90 );
+insert into country_code_master ( country_code ) values ( 90 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 49 );
+insert into country_code_master ( country_code ) values ( 49 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 45 );
+insert into country_code_master ( country_code ) values ( 45 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 34 );
+insert into country_code_master ( country_code ) values ( 34 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 46 );
+insert into country_code_master ( country_code ) values ( 46 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 41 );
+insert into country_code_master ( country_code ) values ( 41 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 30 );
+insert into country_code_master ( country_code ) values ( 30 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 31 );
+insert into country_code_master ( country_code ) values ( 31 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 43 );
+insert into country_code_master ( country_code ) values ( 43 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 7 );
+insert into country_code_master ( country_code ) values ( 7 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 88216 );
+insert into country_code_master ( country_code ) values ( 88216 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 809 );
+insert into country_code_master ( country_code ) values ( 809 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 829 );
+insert into country_code_master ( country_code ) values ( 829 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 849 );
+insert into country_code_master ( country_code ) values ( 849 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 787 );
+insert into country_code_master ( country_code ) values ( 787 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 939 );
+insert into country_code_master ( country_code ) values ( 939 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 658 );
+insert into country_code_master ( country_code ) values ( 658 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 876 );
+insert into country_code_master ( country_code ) values ( 876 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 340 );
+insert into country_code_master ( country_code ) values ( 340 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 284 );
+insert into country_code_master ( country_code ) values ( 284 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 664 );
+insert into country_code_master ( country_code ) values ( 664 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 246 );
+insert into country_code_master ( country_code ) values ( 246 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 441 );
+insert into country_code_master ( country_code ) values ( 441 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 868 );
+insert into country_code_master ( country_code ) values ( 868 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 767 );
+insert into country_code_master ( country_code ) values ( 767 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 649 );
+insert into country_code_master ( country_code ) values ( 649 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 758 );
+insert into country_code_master ( country_code ) values ( 758 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 784 );
+insert into country_code_master ( country_code ) values ( 784 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 869 );
+insert into country_code_master ( country_code ) values ( 869 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 721 );
+insert into country_code_master ( country_code ) values ( 721 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 345 );
+insert into country_code_master ( country_code ) values ( 345 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 473 );
+insert into country_code_master ( country_code ) values ( 473 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 907 );
+insert into country_code_master ( country_code ) values ( 907 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 684 );
+insert into country_code_master ( country_code ) values ( 684 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 808 );
+insert into country_code_master ( country_code ) values ( 808 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> insert into country_code_master ( country_code ) values ( 671 );
+insert into country_code_master ( country_code ) values ( 671 )
+*
+行1でエラーが発生しました。:
+ORA-01400: ("TAKEHIKO"."COUNTRY_CODE_MASTER"."ID")にはNULLは挿入できません。 
+
+
+SQL> 
+SQL> SPOOL OFF;

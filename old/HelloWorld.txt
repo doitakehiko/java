@@ -1,0 +1,50 @@
+HelloWorldをなにも見ずに入力
+public class HelloWorld {
+	public static void main( string args[] ) {
+		sytem.out.println("Hello World!");
+	}
+}
+
+コンパイル
+rocky ~]$ javac  HelloWorld.java 
+HelloWorld.java:2: エラー: シンボルを見つけられません
+	public static void main( string args[] ) {
+	                         ^
+  シンボル:   クラス string
+  場所: クラス HelloWorld
+HelloWorld.java:3: エラー: パッケージsytemは存在しません
+		sytem.out.println("Hello World!");
+		     ^
+エラー2個
+
+頭文字を大文字にしていなかったかと思って修正
+
+public class HelloWorld {
+	public static void main( String args[] ) {
+		Sytem.out.println("Hello World!");
+	}
+}
+
+もう一度コンパイル
+rocky ~]$ javac  HelloWorld.java 
+HelloWorld.java:3: エラー: パッケージSytemは存在しません
+		Sytem.out.println("Hello World!");
+
+
+タイプミスだったので修正
+public class HelloWorld {
+	public static void main( String args[] ) {
+		System.out.println("Hello World!");
+	}
+}
+
+コンパイルと実行が成功
+@rocky ~]$ javac  HelloWorld.java 
+@rocky ~]$ java  HelloWorld 
+Hello World!
+
+HelloWorldでも学べることは多い
+
+viではエラー行番号を入力してShift+Gでエラーの行に入力カーソルへ飛ぶのでデバックしやすい
+IDE (統合開発環境) でもShift+Gが行番号に移動するショートカットになっている場合が多い
+

@@ -1,0 +1,1 @@
+sqlldr yourusername/yourpassword@yourdatabase control=control_file.ctl data=import_utf_ken_all.csv bad=bad_file.bad log=log_file.log

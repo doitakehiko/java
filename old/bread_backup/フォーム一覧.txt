@@ -1,0 +1,204 @@
+Form1
+DataGridView dataGridView1
+TextBox textBoxLog
+TextBox textBoxId
+TextBox textBoxFName
+TextBox textBoxSauce
+TextBox textBoxSandwich
+TextBox textBoxRName
+TextBox textBoxBName
+TextBox textBoxCNameJp
+TextBox textBoxCNameEn
+TextBox textBoxCode
+Button buttonF
+Button buttonSauce
+Button buttonSandwich
+Button buttonB
+Button buttonC
+Button buttonUpd
+Button buttonIns
+Button buttonFClr
+Button buttonSauceClr
+TextBox textBoxFId
+TextBox textBoxSauceId
+TextBox textBoxSandwichId
+TextBox textBoxBId
+TextBox textBoxRId
+Button buttonReset
+
+
+FormB
+DataGridView dataGridView1
+TextBox textBoxLog
+Button buttonDel
+Button buttonUpd
+Button buttonIns
+Button buttonCancel
+Button buttonOK
+Button buttonReset
+TextBox textBoxId
+TextBox textBoxName
+
+FormC
+TextBox textBoxLog
+DataGridView dataGridView1
+TextBox textBoxNameJp
+TextBox textBoxNameEn
+Button buttonCancel
+Button buttonOK
+TextBox textBoxId
+TextBox textBoxCode
+Button buttonReset
+
+
+FormF
+DataGridView dataGridView1
+TextBox textBoxLog
+Button buttonIns
+Button buttonUpd
+Button buttonDel
+Button buttonCancel
+Button buttonOK
+Button buttonReset
+TextBox textBoxId
+TextBox textBoxName」
+
+
+FormI
+Button buttonReset
+Button buttonOK
+Button buttonCancel
+Button buttonDel
+Button buttonUpd
+Button buttonIns
+TextBox textBoxLog
+DataGridView dataGridView1
+DataGridView dataGridViewAdd
+Button buttonAdd
+TextBox textBoxName
+TextBox textBoxId
+
+FormIns
+Label label9
+Label label8
+Label label7
+Label label6
+Label label5
+Label label4
+Label label3
+Label label2
+Label label1
+TextBox textBoxRId
+TextBox textBoxBId
+TextBox textBoxSandwichId
+TextBox textBoxSauceId
+TextBox textBoxFId
+TextBox textBoxCNameEn
+TextBox textBoxCNameJp
+TextBox textBoxBName
+TextBox textBoxRName
+TextBox textBoxSandwich
+TextBox textBoxSauce
+TextBox textBoxFName
+Button buttonOK
+Button buttonCancel
+TextBox textBoxLog
+TextBox textBoxId
+
+FormR
+DataGridView dataGridView1
+TextBox textBoxLog
+Button buttonOK
+Button buttonCancel
+TextBox textBoxNameEn
+TextBox textBoxNameJp
+TextBox textBoxName
+TextBox textBoxCode
+TextBox textBoxId
+Button buttonReset
+TextBox textBoxRName
+Button buttonRIns
+TextBox textBoxCId
+TextBox textBoxRId
+
+RormRM
+Button buttonReset
+Button buttonOK
+Button buttonCancel
+Button buttonDel
+Button buttonUpd
+Button buttonIns
+TextBox textBoxLog
+DataGridView dataGridView1
+Button buttonCSelect
+TextBox textBoxName
+
+
+FormSandwich
+DataGridView dataGridView1
+TextBox textBoxLog
+Button buttonDel
+Button buttonUpd
+Button buttonIns
+Button buttonCancel
+Button buttonOK
+Button buttonReset
+Button buttonType
+Button buttonI
+TextBox textBoxTypeId
+TextBox textBoxTName
+TextBox textBoxName
+TextBox textBoxId
+
+
+FormSauce
+DataGridView dataGridView1
+TextBox textBoxLog
+Button buttonDel
+Button buttonUpd
+Button buttonIns
+Button buttonCancel
+Button buttonOK
+Button buttonReset
+TextBox textBoxName
+TextBox textBoxId
+
+FromT
+Button buttonReset
+Button buttonOK
+Button buttonCancel
+Button buttonDel
+Button buttonUpd
+Button buttonIns
+TextBox textBoxLog
+DataGridView dataGridView1
+TextBox textBoxName
+TextBox textBoxId
+
+
+FormUpd
+TextBox textBoxLog
+Button buttonCancel
+Button buttonOK
+TextBox textBoxRId
+TextBox textBoxBId
+TextBox textBoxSandwichId
+TextBox textBoxSauceId
+TextBox textBoxFId
+TextBox textBoxCNameEn
+TextBox textBoxCNameJp
+TextBox textBoxBName
+TextBox textBoxRName
+TextBox textBoxSandwich
+TextBox textBoxSauce
+TextBox textBoxFName
+Label label1
+Label label2
+Label label3
+Label label4
+Label label5
+Label label6
+Label label7
+Label label8
+Label label9
+TextBox textBoxId

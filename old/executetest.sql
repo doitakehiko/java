@@ -1,0 +1,5 @@
+CREATE OR REPLACE PROCEDURE executetest
+IS
+BEGIN
+  DBMS_OUTPUT.PUT_LINE('create and execute');
+END;

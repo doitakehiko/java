@@ -1,0 +1,50 @@
+テキストボックス
+textBoxFName
+textBoxSauce
+textBoxSandwich
+textBoxRName
+textBoxBName
+textBoxCNameJp
+textBoxCNameEn
+textBoxCode
+
+
+FormF
+FormSauce
+FormSandwich
+FormR
+FormB
+FormC
+FormRM
+FormI
+FormT
+
+
+textBoxFId
+textBoxSauceId
+textBoxSandwichId
+textBoxBId
+textBoxRId
+
+
+Form1IDList
+textBoxFId.Text = dataGridView1.Rows[rowIndex].Cells[9].Value.ToString();
+textBoxSauceId.Text = dataGridView1.Rows[rowIndex].Cells[10].Value.ToString();
+textBoxSandwichId.Text = dataGridView1.Rows[rowIndex].Cells[11].Value.ToString();
+textBoxBId.Text = dataGridView1.Rows[rowIndex].Cells[12].Value.ToString();
+textBoxRId.Text = dataGridView1.Rows[rowIndex].Cells[13].Value.ToString();
+
+
+FormIns
+
+textBoxFName
+textBoxSauceName
+textBoxSandwichName
+textBoxRName
+textBoxBName
+textBoxCNameJp
+textBoxCNameEn
+
+textBoxCCode
+
+textBoxCode

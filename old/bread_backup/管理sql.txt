@@ -1,0 +1,43 @@
+外部キー確認sql
+SELECT
+    a.constraint_name ,
+    a.column_name     ,
+    table_name      ,
+    constraint_name 
+FROM
+    all_cons_columns a
+WHERE
+    a.constraint_name = 'FK_INGREDIENTS'
+
+
+
+
+SELECT 
+    s.sql_id,
+    s.parsing_user_id,
+    u.username,
+    s.sql_text,
+    s.executions,
+    s.buffer_gets,
+    s.disk_reads
+FROM 
+    v$sql s
+JOIN 
+    all_users u ON s.parsing_user_id = u.user_id
+WHERE 
+    u.username = 'TAKEHIKO'
+ORDER BY 
+    s.last_active_time DESC; 
+
+
+
+SELECT 
+    s.sql_text
+FROM 
+    v$sql s
+JOIN 
+    all_users u ON s.parsing_user_id = u.user_id
+WHERE 
+    u.username = 'TAKEHIKO'
+ORDER BY 
+    s.last_active_time DESC; 
