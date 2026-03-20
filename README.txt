@@ -5,10 +5,6 @@ country_master
 country_code_master
 
 
-oracleに以下2テーブルがなければならない
-country_master
-country_code_master
-
 テーブル作成sqlは以下ディレクトリにある
 https://github.com/doitakehiko/BreadMaster/blob/master/BreadMaster/SqlQueries/
 
