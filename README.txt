@@ -29,13 +29,14 @@ interface DoConnection {
 		return password;
 	}
 }
-country_master_data.txtでcountry_masterデータを作成する必要がある
-https://github.com/doitakehiko/BreadMaster/blob/master/BreadMaster/SqlQueries/country_master_data.txt
+country_master_data.sqlでcountry_masterデータを作成する必要がある
+https://github.com/doitakehiko/BreadMaster/blob/master/BreadMaster/SqlQueries/country_master_data.sql
+
+cno.javaをcno.sqlに移植した
+https://github.com/doitakehiko/BreadMaster/blob/master/BreadMaster/SqlQueries/cno.sql
 
 
 cno.javaを実行するとcountry_code_masterにインサートされる
-
-
 使い方
 javac ./cno.java
 java  cno con.csv
