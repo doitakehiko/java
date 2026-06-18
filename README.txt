@@ -41,3 +41,8 @@ https://github.com/doitakehiko/BreadMaster/blob/master/BreadMaster/SqlQueries/cn
 
 cno.csvデータはソートされていなければならず、ユニークでなければユニーク制約でエラーになる
 
+
+
+https://share.google/aimode/0ETXz9rJUEb9sQ8Uk
+sort_cache.c
+
