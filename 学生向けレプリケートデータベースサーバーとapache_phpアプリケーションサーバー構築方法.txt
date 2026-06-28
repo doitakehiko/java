@@ -131,6 +131,10 @@ vi config/database.php
 
 
 
+vi database/seeders/LargeUserSeeder.php
+vi database/seeders/DatabaseSeeder.php
+vi database/seeders/LargeUserSeeder.php
+
 エラーログスキップ
 以下は従データベースの
 mysql> 
@@ -233,10 +237,14 @@ http://192.168.1.アプリケーションサーバーのipaddress/helloworld
 {"message":"helloworld"}
 
 
-phpからmysqlへの書き込み選択テスト
-/multi-db-app/routes/api.php
 <?phpの下に以下を書く
 
+vi routes/web.php
+
+use Illuminate\Http\Request; // 👈 必要に応じて
+
+phpからmysqlへの書き込み選択テスト
+/multi-db-app/routes/api.php
 Route::get('/hellodb', function () {
     // 毎回違うメールアドレスにするため、タイムスタンプを付与
     $name = 'inserthello' . time();
@@ -253,12 +261,12 @@ Route::get('/hellodb', function () {
     ]);
 
     $results = DB::table('users')
-        ->where('name', 'LIKE', '%' . $keyword . '%')
+        ->where('name', '=' ,  $keyword )
         ->get();
 
     return response()->json([
         'keyword_used' => $keyword,
-        'count' => $results,
+        'results' => $results,
         'message' => 'hellodb insert select test'
     ]);
 });
