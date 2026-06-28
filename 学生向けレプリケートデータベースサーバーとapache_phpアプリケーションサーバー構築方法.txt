@@ -1,0 +1,308 @@
+レプリケートデータベースサーバーとapache phpアプリケーションサーバー構築方法
+パソコンを3台、出来れば4台用意する
+動作確認済のジャンクが狙いめだが、nicは10gや2.5gを刺したほうがいい
+以下は実行は必須
+メモリテスト
+memtest86+
+HDDテスト
+sudo badblocks -v -s /dev/sda | tee /tmp/badblocks.txt
+注:ssdにbadblocksを実行してはいけない
+ベンチマークを動かして落ちない程度の安定性は必要
+https://zenn.dev/touhoku_japan/articles/e3f19c869f0817
+ジャンクの場合以下コマンドを実行してCPU温度の確認もしたほうがいい
+watch -n 1 sensors
+stress-ng --cpu 0 --timeout 10m
+サーマルグリス(CPUグリス)が機能していない場合はCPUに塗り直したほうがいい
+新品PCの場合テストとベンチは必要ない
+ソフトウェアのヴァージョン最後に記載する
+
+Linuxのインストールやssh接続方法は割愛する
+sudo apt update
+sudo apt upgrade
+は実行済みとする
+
+
+mysqlのインストール
+データベースサーバーとする2台のPCで以下を実行
+sudo apt install -y mysql-server
+sudo ufw allow from 192.168.1.0/24 to any port 3306
+sudo ufw allow from 192.168.1.0/24 to any port 22 proto tcp
+
+主データベースサーバー
+sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf 
+
+以下は
+テキストエディターでファイルを編集する 
+/etc/mysql/mysql.conf.d/mysqld.cnf 
+max_allowed_packet      = 64M
+max_binlog_size   = 100M
+server-id        = 1
+log_bin          = /var/log/mysql/mysql-bin.log
+binlog_do_db     = test_db
+
+
+従データベースサーバー
+sudo mysql
+以下は
+mysql> 
+で入力する
+CREATE DATABASE test_db;
+
+以下は
+テキストエディターでファイルを編集する 
+sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf 
+key_buffer_size         = 16M
+max_allowed_packet      = 64M
+/etc/mysql/mysql.conf.d/mysqld.cnf 
+server-id        = 2
+relay_log        = /var/log/mysql/xeon-relay-bin.log
+
+sudo systemctl restart mysql
+
+主データベースサーバー
+sudo mysql
+以下は
+mysql> 
+で入力する
+CREATE DATABASE test_db;
+ GRANT ALL PRIVILEGES ON test_db.* TO 'yourusername'@'192.168.1.アプリケーションサーバーのipadress';
+FLUSH PRIVILEGES;
+CREATE USER 'repl_user'@'192.168.1.%' IDENTIFIED BY '安全なパスワード';
+FLUSH PRIVILEGES;
+ GRANT REPLICATION SLAVE ON *.* TO 'repl_user'@'192.168.1.%';
+FLUSH PRIVILEGES;
+
+副データベースサーバー
+SHOW BINARY LOG STATUS;①
+ CHANGE REPLICATION SOURCE TO
+SOURCE_HOST='192.168.1.主dbサーバーのipadress',
+SOURCE_USER='repl_user',
+  SOURCE_LOG_FILE='①のFile',
+  SOURCE_LOG_POS=①のmysql-bin.000001;
+START REPLICA;
+
+
+sudo systemctl restart mysql
+
+従データベースサーバー
+sudo mysql
+以下は
+mysql> 
+で入力する
+mysql> SHOW REPLICA STATUS\G
+
+
+apache phpアプリケーションサーバーで以下を実行
+sudo apt install -y mysql-client
+sudo ufw allow from 192.168.1.0/24 to any port 22 proto tcp
+sudo ufw allow from 192.168.1.0/24 to any port 80 proto tcp
+
+sudo apt install -y php-cli php-mysql php-xml php-mbstring php-curl unzip
+php -v
+sudo apt install -y composer
+cd multi-db-app/
+
+以下は
+テキストエディターでファイルを編集する 
+vi .env
+DB_CONNECTION=mysql
+# 共通の設定
+DB_PORT=3306
+DB_DATABASE=test_db
+DB_USERNAME=yourusername
+DB_PASSWORD=安全なパスワード
+# 【超重要】複数DB（レプリケーション）の指定
+# 書き込み（主）のIP
+DB_HOST_WRITE=192.168.1.xx
+# 読み込み（従）のIP
+DB_HOST_READ=192.168.1.xx
+
+以下は
+テキストエディターでファイルを編集する 
+vi config/database.php 
+
+            'read' => [
+                'host' => [env('DB_HOST_READ', '127.0.0.1')],
+            ],
+            'write' => [
+                'host' => [env('DB_HOST_WRITE', '127.0.0.1')],
+            ],
+            'sticky' => true,
+
+
+
+エラーログスキップ
+以下は従データベースの
+mysql> 
+で入力する
+CHANGE REPLICATION SOURCE TO SOURCE_LOG_FILE='mysql-bin.0000xx', SOURCE_LOG_POS=xxxx;
+ SHOW REPLICA STATUS\G
+以下をみろ
+               Last_SQL_Errno: 0
+               Last_SQL_Error:
+
+以下がyesでレプリケートされている
+           Replica_IO_Running: Yes
+          Replica_SQL_Running: Yes
+
+
+
+安全なレプリケーションサーバー再起動方法
+従データベースサーバーで以下を実行
+sudo mysql
+
+以下は
+mysql> 
+で入力する
+SHOW REPLICA STATUS\G
+econds_Behind_Source: 0
+であると確認する
+STOP REPLICA;
+sudo systemctl stop mysql
+sudo shutdown -h now
+
+
+主データベースで以下を実行
+sudo systemctl stop mysql
+sudo reboot
+
+主データベースでmysql起動確認
+ sudo systemctl status mysql
+activeを確認あとに従データベースサーバーの電源を入れる
+
+従データベースサーバーでレプリケート状態を確認
+sudo mysql
+SHOW REPLICA STATUS\G
+           Replica_IO_Running: Yes
+          Replica_SQL_Running: Yes
+
+
+
+apache phpアプリケーションサーバーでコマンド
+sudo apt install -y apache2 libapache2-mod-php
+sudo systemctl status apache2
+composer create-project laravel/laravel multi-db-app
+
+cd multi-db-app/
+ php artisan tinker
+
+
+
+Apacheの公開ディレクトリ（ドキュメントルート）の設定変更
+/etc/apache2/sites-available/laravel.confテキストエディターで以下のように変更
+
+DocumentRoot /フルパス/multi-db-app/public 
+<Directory /フルパス/multi-db-app/public>
+    AllowOverride All
+    Require all granted
+</Directory>
+
+
+フォルダの所有権変更（www-data への付与）
+Laravelプロジェクトの親ディレクトリで
+sudo chown -R $USER:www-data multi-db-app
+sudo chown -R www-data:www-data multi-db-app/storage
+sudo chown -R www-data:www-data multi-db-app/bootstrap/cache
+
+sudo chmod -R 775 multi-db-app/storage
+sudo chmod -R 775 multi-db-app/bootstrap/cache
+
+mkdir -p /multi-db-app/storage/framework/views
+cat multi-db-app/.env | VIEW_COMPILED_PATH=/multi-db-app/storage/framework/views
+
+sudo chown -R www-data:www-data /multi-db-app/storage/framework/views
+sudo chmod -R 775 /multi-db-app/storage/framework/views
+
+
+php実行テスト
+/multi-db-app/routes/web.php
+に以下を追記
+Route::get('/helloworld', function (Request $request) {
+    return response()->json([
+        'message' => 'helloworld'
+    ]);
+});
+
+コマンドアプリケーションサーバーで実行
+~/multi-db-app$ php artisan route:clear
+
+
+ブラウザで以下urlを開く
+http://192.168.1.アプリケーションサーバーのipaddress/helloworld
+ブラウザに以下が表示で成功
+{"message":"helloworld"}
+
+
+phpからmysqlへの書き込み選択テスト
+/multi-db-app/routes/api.php
+<?phpの下に以下を書く
+
+Route::get('/hellodb', function () {
+    // 毎回違うメールアドレスにするため、タイムスタンプを付与
+    $name = 'inserthello' . time();
+    $email = 'inserthello_' . time() . '@example.com';
+    $keyword = "inserthello";
+    
+    // 1. レコードのインサート（自動的に write/主DB へ送られる）
+    DB::table('users')->insert([
+        'name' => $name,
+        'email' => $email,
+        'password' => "password123",
+        'created_at' => now(),
+        'updated_at' => now(),
+    ]);
+
+    $results = DB::table('users')
+        ->where('name', 'LIKE', '%' . $keyword . '%')
+        ->get();
+
+    return response()->json([
+        'keyword_used' => $keyword,
+        'count' => $results,
+        'message' => 'hellodb insert select test'
+    ]);
+});
+
+コマンドアプリケーションサーバーで実行
+~/multi-db-app$ php artisan route:clear
+
+ブラウザで以下を開く
+http://192.168.1.アプリケーションサーバーのipaddress/api/hellodb
+
+
+{"keyword_used":"inserthello","results":
+insert とselectされたレコード一覧
+最後に"message":"hellodb insert select test"}
+が表示されれば成功
+
+
+
+ab.exeやcurlログ解析は別記事で書く
+
+Linuxのすべてのサーバー以下を使った
+ cat /etc/os-release
+PRETTY_NAME="Ubuntu 26.04 LTS"
+NAME="Ubuntu"
+VERSION_ID="26.04"
+VERSION="26.04 LTS (Resolute Raccoon)"
+VERSION_CODENAME=resolute
+ID=ubuntu
+ID_LIKE=debian
+
+アプリケーションサーバーはserverのLinuxをインストールした
+データベースサーバーは主従ともdesktopのLinuxをインストールした
+
+アプリケーションサーバーソフトウェアヴァージョン
+apache2 -v
+Server version: Apache/2.4.66 (Ubuntu)
+
+php -v
+PHP 8.5.4
+
+php artisan --version
+Laravel Framework 13.16.1
+
+主従データベースサーバーのソフトウェアヴァージョンは同じ
+mysql --version
+mysql  Ver 8.4.10-0ubuntu0.26.04.1 for Linux on x86_64 ((Ubuntu))
+

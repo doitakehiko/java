@@ -1,0 +1,22 @@
+ログ解析は以下logを解析する
+/var/log/apache2/laravel-access.log
+
+scp -i 秘密鍵へのローカルパス username@hostname:/var/log/apache2/laravel-access.log F:\ローカルディスクへのパス
+
+
+アクセス回数の多いIPアドレス」を調べてトップ順に並べるコマンド
+ awk '{print $1}' ./laravel-access.log | sort | uniq -c | sort -nr
+
+アクセスされた時:分:秒だけを抜き出す
+ awk '{print $4}' ./laravel-access.log | cut -d: -f2,3,4
+
+アクセスが最も集中している「秒（時間帯）」のトップ10を集計するコマンド
+ awk '{print $4}' ./laravel-access.log | cut -d: -f2,3,4 | sort | uniq -c | sort -nr | head -n 10
+
+
+grep "/api/hellodb" ./laravel-access.log | awk '$9 == 200 {print $7}' > ./url_list.txt
+
+
+awk '{print $9}' /var/log/apache2/laravel-access.log | sort |
+ uniq -c | sort -nr
+

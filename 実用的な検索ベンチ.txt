@@ -1,0 +1,145 @@
+実戦的な負荷テスト
+
+cd multi-db-app
+
+vi routes/web.php
+に
+<?php
+
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\UserSearchController;
+
+// GET /api/search で検索コントローラーを呼び出す
+Route::get('/search', [UserSearchController::class, 'index']);
+を追加
+
+コマンドで以下を実行
+php artisan make:controller Api/UserSearchController
+
+
+実際の検索コード
+vi app/Http/Controllers/Api/UserSearchController.php
+を
+<?php
+
+namespace App\Http\Controllers\Api;
+
+use App\Http\Controllers\Controller;
+use App\Models\User;
+use Illuminate\Http\Request;
+
+class UserSearchController extends Controller
+{
+    /**
+     * ユーザーをGETリクエストで検索する
+     */
+    public function index(Request $request)
+    {
+        // 💡 10G爆撃テスト時のボトルネックを見つけるため、あえてEager Loading（with）や高速なクエリにしています
+        $query = User::query();
+
+        // クエリパラメータ「q」（例: /api/search?q=田中）がある場合、あいまい検索
+        if ($request->has('q') && !empty($request->input('q'))) {
+            $keyword = $request->input('q');
+
+            $query->where(function($q) use ($keyword) {
+                $q->where('name', '=', "{$keyword}");
+            });
+        }
+
+        // 負荷テストでサーバーがクラッシュしないよう、件数制限（Pagination）をかけるのが実務の鉄則です
+        // 1ページあたり20件取得
+        $users = $query->orderBy('id', 'desc')->paginate(20);
+
+        // JSON形式でレスポンス（ステータスコード 200）を返す
+        return response()->json([
+            'status' => 'success',
+            'data'   => $users
+        ], 200);
+    }
+}
+にする
+
+コマンドで以下実行
+php artisan route:clear
+
+ブラウザで以下を開くと20件検索される
+http://192.168.1.64/search
+
+アプリケーションサーバーで
+mysql -h 192.168.1.従データベースサーバーのidアドレス -u yourusername -p
+パスワードを入力
+
+mysql>USE test_db;
+mysql>SELECT * FROM USERS;
+
+ユーザー名をコピーする
+
+ブラウザで以下を開く
+http://192.168.1.64/search?q=selecctで表示されたユーザー名
+
+
+successが表示されて入力したユーザー名が表示されていれば検索は成功している
+
+アプリケーションサーバーで以下を実行
+mysql -u あなたのユーザー名 -pあなたのパスワード test_db -e "SELECT CONCAT('/search?q=', name) FROM users;" > ./url_list.txt
+-pとパスワードの間にスペースを開けない
+
+
+url_list.txt
+で負荷テストをする
+
+./ApacheStressTest.sh
+⏳ 現在 12200 行目のURLをリプレイ再生中...
+⏳ 現在 12300 行目のURLをリプレイ再生中...
+✅ 完全終了！合計 12340 件のセッションを 162.377 秒で10G再生完了しましたわ！
+
+
+
+ログを確認してみる
+cat /var/log/apache2/laravel-access.log
+
+
+
+ApacheStressTest.sh
+gitで非公開だった
+#!/bin/bash
+
+# Fドライブの url_list.txt を1行ずつ読み込んで再生するスクリプト
+URL_FILE="./url_list.txt"
+TARGET_HOST="http://192.168.1.64" # i5のApacheの住所
+
+# ファイルが存在するか指差し確認
+if [ ! -f "$URL_FILE" ]; then
+    echo "エラー: $URL_FILE が見つかりませんわ！"
+    exit 1
+fi
+
+echo "🚀 10Gネットワーク経由でのログリプレイ（セッション再現）を開始しますわ！"
+START_TIME=$(date +%s%N)
+COUNT=0
+
+# url_list.txt を上から順に1行ずつ読み込んで、Apacheへ射出！
+while read -r url_path; do
+    # 空行はスルー
+    if [ -z "$url_path" ]; then continue; fi
+
+    # curlコマンドで画面を出力せずに、裏でアクセス！
+    # 💡 サーバーのスペックに合わせて、負荷が強すぎる場合は「&」の直前に「sleep 0.01」などを挟んで調整してください
+    curl -s -o /dev/null "${TARGET_HOST}${url_path}" &
+
+    COUNT=$((COUNT + 1))
+    
+    # 100行ごとに進捗を表示
+    if [ $((COUNT % 100)) -eq 0 ]; then
+        echo "⏳ 現在 ${COUNT} 行目のURLをリプレイ再生中..."
+    fi
+done < "$URL_FILE"
+
+# すべての並列アクセス（curl）が完全に終わるのを待つ
+wait
+
+END_TIME=$(date +%s%N)
+ELAPSED=$(echo "scale=3; ($END_TIME - $START_TIME) / 1000000000" | bc -l)
+
+echo "✅ 完全終了！合計 ${COUNT} 件のセッションを ${ELAPSED} 秒で10G再生完了しましたわ！"
