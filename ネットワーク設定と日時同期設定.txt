@@ -1,0 +1,98 @@
+Ubuntu 26.04
+固定IPアドレスネットワーク設定
+
+nmcli connection show
+NAME        UUID                                  TYPE      DEVICE 
+有線接続 1  d662a267-d263-37af-898d-d3024a385394  ethernet  enp3s0 
+lo          29a5d880-a194-409d-b2a0-fc8a41c6dd2e  loopback  lo     
+
+$ sudo nmcli connection modify "有線接続 1" ipv4.addresses "192.168.1.固定IPアドレス/24"
+$ sudo nmcli connection modify "有線接続 1" ipv4.gateway "192.168.1.1"
+$ sudo nmcli connection modify "有線接続 1" ipv4.dns "192.168.1.1"
+$ sudo nmcli connection modify "有線接続 1" ipv4.method "manual"
+$ sudo nmcli connection up "有線接続 1"
+
+
+ sudo systemctl restart systemd-networkd
+
+
+日時同期設定
+以下コマンドでserverが表示されたり、synchronized: yesなら設定は必要ない
+timedatectl timesync-status
+       Server: 185.125.190.57 (ntp.ubuntu.com)
+$  timedatectl status
+System clock synchronized: yes
+              NTP service: active
+
+以下コマンドでインターネット接続と名前解決を確認する
+ping -c 3 ntp.ubuntu.com
+
+timesyncdが動いているか確認
+systemctl status systemd-timesyncd
+active (running)
+
+timesyncdがインストールされていない場合以下コマンドを実行
+sudo apt update
+sudo apt install systemd-timesyncd
+
+timesyncdが壊れている場合は以下でリセットできる
+ sudo apt install --reinstall -o Dpkg::Options::="--force-confmiss" systemd-timesyncd
+
+
+時刻同期手動設定方法
+ sudo vi /etc/systemd/timesyncd.conf
+
+[Time]
+NTP=ntp.nict.jp ntp.ubuntu.com
+FallbackNTP=ntp.ubuntu.com
+
+以下をコマンドで実行
+ sudo systemctl restart systemd-timesyncd
+ 
+以下コマンドでtimesyncdの状態を確認
+sleep 20
+timedatectl timesync-status
+timedatectl status
+
+sleepは20秒待たないと反映されない場合がある
+
+私の環境では
+ sudo systemctl restart systemd-networkd
+でネットワークをリスタートした後に
+ sudo systemctl restart systemd-timesyncd
+をしないと同期しなかった
+
+以下でログを確認できるので、問題があるならgoogleに聞け
+sudo journalctl -u systemd-timesyncd -n 20 --no-pager
+
+chronyがインストールされていて動いている場合干渉してtimesyncdは動かない
+
+dpkg -l | grep chrony
+で何も出なかったら以下は必要ない
+
+chronydの状態を確認
+systemctl status chronyd
+active (running)なら現在動作中、inactive (dead)なら停止中を
+
+runningなら
+sudo systemctl stop chronyd
+を実行
+
+inactive (dead)でも以下を実行できる
+sudo systemctl disable chronyd
+sudo apt purge chrony
+最後の行でchronyを消す
+
+以下を実行してみる
+sudo find /etc | grep chrony
+sudo rm -rf /etc/chrony.conf
+sudo rm -rf /etc/chrony.d/
+sudo rm -rf /var/lib/chrony/
+
+
+/etc/cloud/templates/chrony.conf.ubuntu.tmpl は、クラウド環境（AWSやAzureなど）で初期設定を行う cloud-init というツールのテンプレートファイルです。
+/etc/cloud/templates/chrony.conf.ubuntu.tmplはあっても害はない
+
+Linux使ているならsudo find /etcわかると思うので詳細はかかない
+
+
