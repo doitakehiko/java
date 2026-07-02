@@ -1,0 +1,234 @@
+ProxySQLでsqlロードバランサ―構築およびC#サンプルコード
+
+ProxySQLでコマンド
+
+ProxySQLのインストール
+https://github.com/sysown/proxysql/releases/download/v3.0.9//proxysql_3.0.9-ubuntu24_amd64.deb
+sudo dpkg -i proxysql_3.0.9-ubuntu24_amd64.deb
+ sudo systemctl start proxysql
+ sudo systemctl enable proxysql
+
+mysqlクライアントのインストール
+sudo apt install -y mysql-client
+
+# 初期パスワード「admin」で管理画面（MySQLプロトコル）にログイン
+mysql -u admin -padmin -h 127.0.0.1 -P 6032 --prompt='ProxySQL> '
+
+
+ProxySQLでsql入力
+-- マスター（ホストグループ 10）の登録
+INSERT INTO mysql_servers(hostgroup_id, hostname, port, weight) VALUES (10, '192.168.1.主データベースサーバーのIPアドレス', 3306, 1);
+
+-- スレーブ（ホストグループ 20）の登録
+INSERT INTO mysql_servers(hostgroup_id, hostname, port, weight) VALUES (20, '192.168.1.従データベースサーバーのIPアドレス', 3306, 1);
+-- ここでIPアドレスを入力ミスした、IPアドレス入力ミス対応スタートからエンドを行う、正しいIPアドレスなら必要ない
+-- 設定をメモリ（実行環境）に反映し、ディスクに保存
+LOAD MYSQL SERVERS TO RUNTIME;
+SAVE MYSQL SERVERS TO DISK;
+
+
+主データベースサーバーでsql入力
+sudo mysql
+-- 【注意】これは「実際のMySQL」のマスターで実行してください
+CREATE USER 'monitor'@'%' IDENTIFIED BY 'monitor_password';
+GRANT REPLICATION CLIENT ON *.* TO 'monitor'@'%';
+FLUSH PRIVILEGES;
+
+
+-- 【ProxySQL画面で実行】監視ユーザーの登録
+SET mysql-monitor_username='monitor';
+SET mysql-monitor_password='monitor_password';
+
+-- レプリケーション遅延が何秒以上になったらスレーブを切り離すかの設定（例: 10秒）
+SET mysql-monitor_replication_lag_interval=10000; 
+
+-- 設定の反映と保存
+LOAD MYSQL VARIABLES TO RUNTIME;
+SAVE MYSQL VARIABLES TO DISK;
+
+
+ProxySQLにも登録
+-- C#アプリ用ユーザー（デフォルトの接続先をマスターの10番に設定）
+INSERT INTO mysql_users(username, password, default_hostgroup) VALUES ('yourusername', 'yourpassword', 10);
+
+-- 設定の反映と保存
+LOAD MYSQL USERS TO RUNTIME;
+SAVE MYSQL USERS TO DISK;
+
+
+
+-- 1. 更新用（FOR UPDATE付きSELECTなど）をマスター(10)へ送るルール（最優先）
+INSERT INTO mysql_query_rules(rule_id, active, match_pattern, destination_hostgroup, apply) VALUES (1, 1, '^SELECT .* FOR UPDATE$', 10, 1);
+
+-- 2. 通常のSELECT文をすべてスレーブ(20)へ送るルール
+INSERT INTO mysql_query_rules(rule_id, active, match_pattern, destination_hostgroup, apply) VALUES (2, 1, '^SELECT ', 20, 1);
+
+-- 設定の反映と保存
+LOAD MYSQL QUERY RULES TO RUNTIME;
+SAVE MYSQL QUERY RULES TO DISK;
+
+
+
+
+IPアドレス入力ミス対応スタート
+エラー発生: Max connect timeout reached while reaching hostgroup 20 after 10000ms
+
+SELECT hostgroup_id, hostname, port, status FROM runtime_mysql_servers;
++--------------+---------------+------+---------+
+| hostgroup_id | hostname      | port | status  |
++--------------+---------------+------+---------+
+| 10           | 192.168.1.maindbip  | 3306 | ONLINE  |
+| 20           | 192.168.1.otherid | 3306 | SHUNNED |
++--------------+---------------+------+---------+
+2 rows in set (0.00 sec)
+
+20のIPアドレス入力ミス
+
+
+ProxySQL
+-- 1. 間違ったIP（128）のデータを削除
+DELETE FROM mysql_servers WHERE hostgroup_id = 20 AND hostname = '192.168.1.間違って入力したipアドレス';
+
+-- 2. 正しいIP（129）でスレーブを再登録
+INSERT INTO mysql_servers(hostgroup_id, hostname, port, weight) VALUES (20, '192.168.1.正しい従データベースサーバーのIPアドレス', 3306, 1);
+
+-- 3. 設定をメモリに反映し、ディスクに保存
+LOAD MYSQL SERVERS TO RUNTIME;
+SAVE MYSQL SERVERS TO DISK;
+IPアドレス入力ミス対応エンド
+
+
+Visual Studio 2022で
+新しいプロジェクト作成
+Windows フォームアプリ C#で次
+ProxySQLTestをプロジェクト名とソリューション名に入力し、場所にディレクトリを入れる
+.NET 8.0を選択し接ぎ
+作成を押す
+Any CPUをx64にかえる
+
+依存関係の上で右クリック
+NuGetパッケージ管理で
+MySql.Data
+をインストール
+
+フォームにtextBox1を作りMutillineをTrueにする
+Form1.scを右クリックしてコードを表示
+以下ソースコードをコピペする
+using MySql.Data.MySqlClient;
+using System.Threading.Tasks;
+namespace ProxySQLTest
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            string ConnString = "Server=192.168.1.ProxySQLのIPアドレス;Port=6033;Database=test_db;Uid=yourusername;Pwd=yourpassword;Pooling=true;";
+
+            try
+            {
+                // --- パターンA: Masterにデータを書き込む (INSERT) ---
+                textBox1.Text += Environment.NewLine + "Masterへ書き込み中...";
+                using (var conn = new MySqlConnection(ConnString))
+                {
+                    conn.Open();
+                    string insertSql = "INSERT INTO users (name, email, password, created_at, updated_at) VALUES ('ProxySQLTest User " + DateTime.Now + "', 'ProxySQLtest_user@exsample.com" + DateTime.Now + "', 'ProxySQLpassowrd12345qwerty', NOW(), NOW())";
+                    Console.WriteLine(insertSql);
+                    using (var cmd = new MySqlCommand(insertSql, conn))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+                }
+
+
+                Task.Delay(1000).Wait(); // 1秒待機してからSlaveからの読み込みを行う 
+
+                // --- パターンB: Slaveからデータを読み込む (SELECT) ---
+                textBox1.Text += Environment.NewLine + "Slaveから読み込み中...";
+                using (var conn = new MySqlConnection(ConnString))
+                {
+                    conn.Open();
+                    string selectSql = "SELECT * FROM users ORDER BY id DESC LIMIT 1"; ;
+                    using (var cmd = new MySqlCommand(selectSql, conn))
+                    using (var reader = cmd.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            textBox1.Text += textBox1.Text = Environment.NewLine + $"取得データ - ID: {reader["id"]}, Name: {reader["name"]}";
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                textBox1.Text += Environment.NewLine + $"エラー発生: {ex.Message}";
+            }
+        }
+
+    }
+}
+
+F5を押してテキストボックスに今の日時がついたuserが表示されれば成功
+
+結果例は以下だ
+Masterへ書き込み中...
+Slaveから読み込み中...
+取得データ - ID: 12366, Name: ProxySQLTest User 2026/07/02 13:00:32
+
+
+
+
+システムをシャットダウンする方法
+proxysqlコマンド
+sudo systemctl stop proxysql
+sudo shutdown -h now
+
+従データベースサーバー
+sudo mysql
+mysql> STOP REPLICA;
+Query OK, 0 rows affected (0.12 sec)
+コマンドで
+ sudo systemctl stop mysql
+sudo shutdown -h now
+
+従データベースサーバー
+sudo systemctl stop mysql
+sudo shutdown -h now
+
+
+
+
+システムを起動する方法
+主データベースサーバーを起動する
+sudo systemctl status mysql
+activeを確認
+
+従データベースサーバーを起動する
+sudo systemctl status mysql
+sudo mysql
+SHOW REPLICA STATUS\G
+           Replica_IO_Running: Yes
+          Replica_SQL_Running: Yes
+
+
+sqlロードバランサ―でproxysqlを起動
+sudo systemctl start proxysql
+mysql -u admin -padmin -h 127.0.0.1 -P 6032 --prompt='ProxySQL> '
+
+ProxySQL> SELECT hostgroup_id, hostname, port, status FROM runtime_mysql_servers;
++--------------+---------------+------+--------+
+| hostgroup_id | hostname      | port | status |
++--------------+---------------+------+--------+
+| 10           | 192.168.1.maidbip  | 3306 | ONLINE |
+| 20           | 192.168.1.slavedbip | 3306 | ONLINE |
++--------------+---------------+------+--------+
+2 rows in set (0.00 sec)
+
+
+vsで
+ProxySQLTestをデバックモードで実行してみる
+
