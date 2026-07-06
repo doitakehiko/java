@@ -1,0 +1,17 @@
+緊急時のとりあえずエラーをスキップする対応
+主従データベースサーバーで
+sudo systemctl status mysql
+従データベースサーバーで
+sudo mysql
+SHOW REPLICA STATUS\g
+エラーnoでググれ、障害が発生すると次から次へとエラーが発生して書ききれない
+主データベースで
+SHOW BINARY LOG STATUS;
+従データベースで
+ STOP REPLICA;
+CHANGE REPLICATION SOURCE TO SOURCE_LOG_FILE='mysql-bin.0000xx', SOURCE_LOG_POS=xxxx;
+START REPLICA;
+ SHOW REPLICA STATUS\G
+主従データベースサーバーでデータ不整合がある可能性があるのでチェックしろとAIが言った
+
+
