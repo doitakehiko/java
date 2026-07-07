@@ -12,6 +12,108 @@ SHOW BINARY LOG STATUS;
 CHANGE REPLICATION SOURCE TO SOURCE_LOG_FILE='mysql-bin.0000xx', SOURCE_LOG_POS=xxxx;
 START REPLICA;
  SHOW REPLICA STATUS\G
-主従データベースサーバーでデータ不整合がある可能性があるのでチェックしろとAIが言った
+ソースレプリカ両方のデータベースサーバーでデータ不整合がある可能性があるのでチェックしろとAIが言った
 
 
+以下はソースとレプリカで差をチェックするプログラムと同期するプログラムだ
+Percona Toolkitの pt-table-checksum と pt-table-sync の具体的な使い方
+
+ソースデータベースサーバー側
+wget https://downloads.percona.com/downloads/percona-toolkit/3.7.1-4/binary/debian/resolute/x86_64/percona-toolkit_3.7.1-4.resolute_amd64.deb
+sudo dpkg -i percona-toolkit_3.7.1-4.resolute_amd64.deb
+
+ソースレプリカ両方のデータベースで(認証を甘くするので非推奨)
+sudo vi /etc/mysql/mysql.conf.d/mysqld.cnf
+mysql_native_password=ON
+ sudo systemctl restart mysql
+
+ソースデータベースで
+CREATE USER 'pt_tools'@'%' IDENTIFIED BY 'assword123!';
+GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER, SUPER, REPLICATION SLAVE ON *.* TO 'pt_tools'@'%';
+GRANT PROCESS ON *.* TO 'pt_tools'@'%';
+ALTER USER 'pt_tools'@'%' IDENTIFIED WITH mysql_native_password BY 'Password123!';--認証を甘くするので注意
+FLUSH PRIVILEGES;
+
+レプリカデータベースで
+ALTER USER 'pt_tools'@'%' IDENTIFIED WITH mysql_native_password BY 'Password123!';--認証を甘くするので注意
+FLUSH PRIVILEGES;
+
+ソースデータベースでコマンド
+pt-table-sync \
+  --user=pt_tools \
+  --password='Password123!' \
+  --databases=test_db \
+  --recursion-method=none \
+  --no-check-replica \
+  --print \
+  h=192.168.1.32 h=192.168.1.129
+
+pt-table-sync \
+  --user=pt_tools \
+  --password='Password123!' \
+  --databases=test_db \
+  --recursion-method=none \
+  --no-check-replica \
+  --execute \
+  h=192.168.1.32 h=192.168.1.129
+
+以下はレプリカ側をユーザーが書き込みできなくする
+SHOW VARIABLES LIKE '%read_only%';
++-----------------------+-------+
+| Variable_name         | Value |
++-----------------------+-------+
+| innodb_read_only      | OFF   |
+| read_only             | OFF   |
+| super_read_only       | OFF   |
+| transaction_read_only | OFF   |
++-----------------------+-------+
+4 rows in set (0.00 sec)
+
+SET GLOBAL super_read_only = ON;
+SET GLOBAL read_only = ON;
+FLUSH PRIVILEGES;
+
+
+ SHOW VARIABLES LIKE '%read_only%';
++-----------------------+-------+
+| Variable_name         | Value |
++-----------------------+-------+
+| innodb_read_only      | OFF   |
+| read_only             | ON    |
+| super_read_only       | ON    |
+| transaction_read_only | OFF   |
++-----------------------+-------+
+4 rows in set (0.00 sec)
+
+
+レプリカ側
+mysql> 
+INSERT INTO test_db.users (id, name, email, password)
+VALUES (999, 'Test User', 'test@example.com', 'secret');
+ERROR 1290 (HY000): The MySQL server is running with the --super-read-only option so it cannot execute this statement
+
+
+ソース側
+INSERT INTO test_db.users (name, email, password) 
+VALUES ( 'Sync Test 333', 'sync3333@example.com', 'secret');
+
+
+
+直前のエラーをスキップ
+SET GLOBAL sql_replica_skip_counter = 1;
+
+
+ソースデータベース
+SHOW VARIABLES LIKE 'binlog_format';
+
+ROWを確認
+
+レプリカを以下テーブルに登録するようだが今回はやらない
+-- 接続先リストを保存するテーブルを作成
+CREATE TABLE IF NOT EXISTS percona.dsns (
+  id int NOT NULL AUTO_INCREMENT,
+  parent_id int DEFAULT NULL,
+  dsn varchar(255) NOT NULL,
+  PRIMARY KEY (id)
+);
+INSERT INTO percona.dsns (dsn) VALUES ('h=192.168.1.129,u=pt_tools,p=Password123!');
