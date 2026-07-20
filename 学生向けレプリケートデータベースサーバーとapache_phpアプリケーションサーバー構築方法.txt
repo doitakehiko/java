@@ -65,15 +65,19 @@ sudo mysql
 mysql> 
 で入力する
 CREATE DATABASE test_db;
- GRANT ALL PRIVILEGES ON test_db.* TO 'yourusername'@'192.168.1.アプリケーションサーバーのipadress';
+CREATE USER 'yourusername'@'192.168.1.%' IDENTIFIED BY '安全なパスワード';
+FLUSH PRIVILEGES;
+GRANT ALL PRIVILEGES ON test_db.* TO 'yourusername'@'192.168.1.%';
 FLUSH PRIVILEGES;
 CREATE USER 'repl_user'@'192.168.1.%' IDENTIFIED BY '安全なパスワード';
 FLUSH PRIVILEGES;
  GRANT REPLICATION SLAVE ON *.* TO 'repl_user'@'192.168.1.%';
 FLUSH PRIVILEGES;
 
-副データベースサーバー
+主データベースサーバー
 SHOW BINARY LOG STATUS;①
+
+副データベースサーバー
  CHANGE REPLICATION SOURCE TO
 SOURCE_HOST='192.168.1.主dbサーバーのipadress',
 SOURCE_USER='repl_user',
