@@ -54,9 +54,8 @@ sudo systemctl status systemd-timesyncd.service
 sudo systemctl restart systemd-timesyncd
 
 
-以下はubuntu serverにおいてエラーケース
-Ubuntu 26.04
-固定IPアドレスネットワーク設定
+Ubuntu
+NetworkManagerでの固定IPアドレスネットワーク設定
 
 nmcli connection show
 NAME        UUID                                  TYPE      DEVICE 
@@ -70,20 +69,18 @@ $ sudo nmcli connection modify "有線接続 1" ipv4.method "manual"
 $ sudo nmcli connection up "有線接続 1"
 
 
-sudo nmcli connection modify "netplan-enp2s0" ipv4.method "manual"
-
-
 
 日時同期設定
 以下コマンドでserverが表示されたり、synchronized: yesなら設定は必要ない
-timedatectl timesync-status
-       Server: 185.125.190.57 (ntp.ubuntu.com)
+$ timedatectl timesync-status
+       Server: 133.243.238.163 (ntp.nict.jp)
+
 $  timedatectl status
 System clock synchronized: yes
               NTP service: active
 
 以下コマンドでインターネット接続と名前解決を確認する
-ping -c 3 ntp.ubuntu.com
+ping -c 3 ntp.nict.jp
 
 timesyncdが動いているか確認
 systemctl status systemd-timesyncd
@@ -101,7 +98,7 @@ timesyncdが壊れている場合は以下でリセットできる
  sudo vi /etc/systemd/timesyncd.conf
 
 [Time]
-NTP=ntp.nict.jp ntp.ubuntu.com
+NTP=ntp.nict.jp
 FallbackNTP=ntp.ubuntu.com
 
 以下をコマンドで実行
@@ -114,7 +111,7 @@ timedatectl status
 
 sleepは20秒待たないと反映されない場合がある
 
-私の環境では
+私の環境では(ネットワークがおかしくて事項動機が失敗する場合はネットワークをrestartしてみる)
  sudo systemctl restart systemd-networkd
 でネットワークをリスタートした後に
  sudo systemctl restart systemd-timesyncd
@@ -153,4 +150,17 @@ sudo rm -rf /var/lib/chrony/
 
 Linux使ているならsudo find /etcわかると思うので詳細はかかない
 
+
+タイムゾーンが異なっていても時間がずれる
+ timedatectl
+               Local time: Sat 2026-07-25 09:47:17 JST
+           Universal time: Sat 2026-07-25 00:47:17 UTC
+                 RTC time: Sat 2026-07-25 00:47:17
+                Time zone: Asia/Tokyo (JST, +0900)
+System clock synchronized: yes
+              NTP service: active
+          RTC in local TZ: no
+
+タイムゾーン設定
+sudo timedatectl set-timezone Asia/Tokyo
 
