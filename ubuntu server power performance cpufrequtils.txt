@@ -1,0 +1,61 @@
+２４時間超高負荷サーバーの電源管理
+CPUのガバナー（動作モード）でpowersaveやschedutilはクロック数をあげる遅延が存在する
+２４時間超高負荷サーバーの場合CPUのガバナーをperformanceに設定したほうがいいようだ
+
+power-profiles-daemon が動作しているかどうかを確認
+systemctl status power-profiles-daemon
+
+CPUのガバナー（動作モード）を確認する
+24時間高負荷サーバーでなければ以下の場合そのままで大丈夫
+cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+powersave
+schedutil
+
+cpufrequtilsのインストール
+sudo apt update && sudo apt install -y cpufrequtils
+
+対応:24時間高負荷サーバーはperformanceにしたほうがいいと思う
+echo 'GOVERNOR="performance"' | sudo tee /etc/default/cpufrequtils
+
+cpufrequtils再起動
+sudo systemctl restart cpufrequtils
+
+起動時に有効にする
+sudo systemctl enable cpufrequtils
+
+
+確認
+sudo systemctl status cpufrequtils
+activeを確認
+
+$ cat /sys/devices/system/cpu/cpu0/cpufreq/scaling_governor
+performance
+
+$ lscpu | grep "MHz"
+CPU(s) scaling MHz:                      75%
+CPU max MHz:                             4900.0000
+CPU min MHz:                             800.0000
+
+$ cat /proc/cpuinfo | grep -i "cpu mhz"
+cpu MHz         : 4772.961
+cpu MHz         : 4756.428
+cpu MHz         : 4690.516
+cpu MHz         : 4601.371
+cpu MHz         : 4601.069
+cpu MHz         : 4798.868
+cpu MHz         : 4800.012
+cpu MHz         : 4763.963
+
+
+cpufrequtilsをきれいに削除する方法
+sudo apt purge -y cpufrequtils
+sudo rm -f /etc/default/cpufrequtils
+
+
+高負荷サーバーなら
+performance
+にしたほうがいいい？とAIに聞いた
+
+https://share.google/aimode/mCt0Zn5Ehaoy3Zvab
+
+私の環境はホーム開発サーバーなのでperformanceにする必要はない
