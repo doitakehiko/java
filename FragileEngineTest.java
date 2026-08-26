@@ -11,6 +11,6 @@ public class FragileEngineTest {
         myCar.elapseTime(120); // ここで内部の損耗率が自動計算される（120 * 0.005 = 0.6）
 
         System.out.println("\n--- 2回目：劣化状態での起動テスト ---");
-        myCar.start(); // 30%の確率で失敗するようになる
+        myCar.start(); // 60%の確率で失敗するようになる
     }
 }
