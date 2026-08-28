@@ -1,4 +1,8 @@
-// 3次元ベクトルクラス（足し算などを追加してゲーム向けに強化）
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
+// 3次元ベクトルクラス
 class Vector3 {
     public float x, y, z;
 
@@ -22,5 +26,10 @@ class Vector3 {
 
     public void reset() {
         this.x = 0; this.y = 0; this.z = 0;
+    }
+
+    @Override
+    public String toString() {
+        return String.format("(%.2f, %.2f, %.2f)", x, y, z);
     }
 }
