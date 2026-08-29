@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<title>3D水分子シミュレーション</title>
+
+<style>
+    body {
+        margin: 0;
+        overflow: hidden;
+        background-color: #0f172a;
+    }
+
+    #info {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        color: white;
+        font-family: sans-serif;
+        pointer-events: none;
+        line-height: 1.5;
+        z-index: 10;
+    }
+
+    #info h2 {
+        margin-top: 0;
+    }
+</style>
+
+<!-- Three.js / Import Map -->
+<script type="importmap">
+{
+    "imports": {
+        "three": "https://unpkg.com/three@0.180.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.180.0/examples/jsm/"
+    }
+}
+</script>
+```
+
+</head>
+
+<body>
+
+<div id="info">
+    <h2>3D水分子シミュレーション（水素結合）</h2>
+    <p>● 赤い球体（酸素原子）を左ドラッグして動かせます。</p>
+    <p>● 水分子同士が電磁気力で引き合います。</p>
+    <p>● 分子にはダンパーが働くため、ネバッとした動きになります。</p>
+</div>
+
+<script type="module">
+
+import * as THREE from 'three';
+import { DragControls } from 'three/addons/controls/DragControls.js';
+
+
+// ============================================================
+// 1. 簡易物理演算用 Vector3
+// ============================================================
+
+class Vector3 {
+
+    constructor(x = 0, y = 0, z = 0) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+
+    add(v) {
+        return new Vector3(
+            this.x + v.x,
+            this.y + v.y,
+            this.z + v.z
+        );
+    }
+
+    multiply(scalar) {
+        return new Vector3(
+            this.x * scalar,
+            this.y * scalar,
+            this.z * scalar
+        );
+    }
+
+    reset() {
+        this.x = 0;
+        this.y = 0;
+        this.z = 0;
+    }
+
+    normalized() {
+
+        const magnitude = Math.sqrt(
+            this.x * this.x +
+            this.y * this.y +
+            this.z * this.z
+        );
+
+        if (magnitude > 0) {
+            return new Vector3(
+                this.x / magnitude,
+                this.y / magnitude,
+                this.z / magnitude
+            );
+        }
+
+        return new Vector3();
+    }
+}
+
+
+// ============================================================
+// 2. 原子
+// ============================================================
+
+class Atom {
+
+    constructor(id, x, y, z, charge, mass, mesh) {
+
+        this.id = id;
+
+        this.position = new Vector3(x, y, z);
+
+        this.velocity = new Vector3();
+
+        this.accumulatedForce = new Vector3();
+
+        this.charge = charge;
+
+        this.mass = mass;
+
+        this.mesh = mesh;
+    }
+
+
+    addForce(force) {
+
+        this.accumulatedForce =
+            this.accumulatedForce.add(force);
+    }
+
+
+    updatePosition(deltaTime) {
+
+        const acceleration =
+            this.accumulatedForce.multiply(1.0 / this.mass);
+
+        this.velocity =
+            this.velocity.add(
+                acceleration.multiply(deltaTime)
+            );
+
+        // ダンパー
+        this.velocity =
+            this.velocity.multiply(0.92);
+
+
+        this.position =
+            this.position.add(
+                this.velocity.multiply(deltaTime)
+            );
+
+
+        this.accumulatedForce.reset();
+
+
+        // Three.js側へ反映
+
+        this.mesh.position.set(
+            this.position.x,
+            this.position.y,
+            this.position.z
+        );
+    }
+}
+
+
+// ============================================================
+// 3. 分子内の結合
+// ============================================================
+
+class Bond {
+
+    constructor(a1, a2, k, len, lineMesh) {
+
+        this.atom1 = a1;
+
+        this.atom2 = a2;
+
+        this.springConstant = k;
+
+        this.restLength = len;
+
+        this.lineMesh = lineMesh;
+    }
+
+
+    applySpringForce() {
+
+        const dx =
+            this.atom2.position.x -
+            this.atom1.position.x;
+
+        const dy =
+            this.atom2.position.y -
+            this.atom1.position.y;
+
+        const dz =
+            this.atom2.position.z -
+            this.atom1.position.z;
+
+
+        const distance =
+            Math.sqrt(dx * dx + dy * dy + dz * dz);
+
+
+        if (distance === 0) {
+            return;
+        }
+
+
+        const displacement =
+            distance - this.restLength;
+
+
+        const forceMagnitude =
+            this.springConstant * displacement;
+
+
+        const forceVector =
+            new Vector3(dx, dy, dz)
+                .normalized()
+                .multiply(forceMagnitude);
+
+
+        this.atom1.addForce(forceVector);
+
+        this.atom2.addForce(
+            forceVector.multiply(-1.0)
+        );
+
+
+        this.updateLine();
+    }
+
+
+    updateLine() {
+
+        const positions =
+            this.lineMesh.geometry.attributes.position.array;
+
+
+        positions[0] = this.atom1.position.x;
+        positions[1] = this.atom1.position.y;
+        positions[2] = this.atom1.position.z;
+
+        positions[3] = this.atom2.position.x;
+        positions[4] = this.atom2.position.y;
+        positions[5] = this.atom2.position.z;
+
+
+        this.lineMesh.geometry.attributes.position.needsUpdate =
+            true;
+    }
+}
+
+
+// ============================================================
+// 4. 水分子
+// ============================================================
+
+class Molecule {
+
+    constructor(name) {
+
+        this.name = name;
+
+        this.atoms = [];
+
+        this.bonds = [];
+
+        this.isGrabbed = false;
+    }
+
+
+    applyInternalForces() {
+
+        for (const bond of this.bonds) {
+
+            bond.applySpringForce();
+        }
+    }
+
+
+    updateAtoms(deltaTime) {
+
+        if (this.isGrabbed) {
+
+            for (const atom of this.atoms) {
+
+                atom.position.x =
+                    atom.mesh.position.x;
+
+                atom.position.y =
+                    atom.mesh.position.y;
+
+                atom.position.z =
+                    atom.mesh.position.z;
+
+
+                atom.velocity.reset();
+
+                atom.accumulatedForce.reset();
+            }
+
+            return;
+        }
+
+
+        for (const atom of this.atoms) {
+
+            atom.updatePosition(deltaTime);
+        }
+    }
+
+
+    updateBondLines() {
+
+        for (const bond of this.bonds) {
+
+            bond.updateLine();
+        }
+    }
+}
+
+
+// ============================================================
+// 5. Three.js シーン
+// ============================================================
+
+const scene = new THREE.Scene();
+
+
+// カメラ
+
+const camera =
+    new THREE.PerspectiveCamera(
+        60,
+        window.innerWidth / window.innerHeight,
+        0.1,
+        100
+    );
+
+camera.position.set(0, 0, 7);
+
+
+// レンダラー
+
+const renderer =
+    new THREE.WebGLRenderer({
+        antialias: true
+    });
+
+renderer.setPixelRatio(
+    Math.min(window.devicePixelRatio, 2)
+);
+
+renderer.setSize(
+    window.innerWidth,
+    window.innerHeight
+);
+
+document.body.appendChild(
+    renderer.domElement
+);
+
+
+// ============================================================
+// 6. ライト
+// ============================================================
+
+const light1 =
+    new THREE.DirectionalLight(
+        0xffffff,
+        1.5
+    );
+
+light1.position.set(5, 5, 5);
+
+scene.add(light1);
+
+
+const light2 =
+    new THREE.AmbientLight(
+        0x555555
+    );
+
+scene.add(light2);
+
+
+// ============================================================
+// 7. マテリアル・ジオメトリ
+// ============================================================
+
+const oxygenGeo =
+    new THREE.SphereGeometry(
+        0.4,
+        32,
+        32
+    );
+
+
+const hydrogenGeo =
+    new THREE.SphereGeometry(
+        0.23,
+        32,
+        32
+    );
+
+
+const oxygenMat =
+    new THREE.MeshPhongMaterial({
+        color: 0xef4444,
+        shininess: 80
+    });
+
+
+const hydrogenMat =
+    new THREE.MeshPhongMaterial({
+        color: 0xf8fafc,
+        shininess: 80
+    });
+
+
+const lineMat =
+    new THREE.LineBasicMaterial({
+        color: 0x94a3b8
+    });
+
+
+// ============================================================
+// 8. ワールド
+// ============================================================
+
+const worldMolecules = [];
+
+const draggableObjects = [];
+
+
+// ============================================================
+// 9. 水分子生成
+// ============================================================
+
+function buildWater(
+    name,
+    ox,
+    oy,
+    oz
+) {
+
+    const mol =
+        new Molecule(name);
+
+
+    // --------------------------------------------------------
+    // 酸素
+    // --------------------------------------------------------
+
+    const oMesh =
+        new THREE.Mesh(
+            oxygenGeo,
+            oxygenMat
+        );
+
+
+    // --------------------------------------------------------
+    // 水素
+    // --------------------------------------------------------
+
+    const h1Mesh =
+        new THREE.Mesh(
+            hydrogenGeo,
+            hydrogenMat
+        );
+
+
+    const h2Mesh =
+        new THREE.Mesh(
+            hydrogenGeo,
+            hydrogenMat
+        );
+
+
+    scene.add(
+        oMesh,
+        h1Mesh,
+        h2Mesh
+    );
+
+
+    // 酸素だけドラッグ可能
+
+    draggableObjects.push(
+        oMesh
+    );
+
+
+    oMesh.userData.parentMolecule =
+        mol;
+
+
+    // --------------------------------------------------------
+    // 原子
+    // --------------------------------------------------------
+
+    const o =
+        new Atom(
+            name + "_O",
+            ox,
+            oy,
+            oz,
+            -0.8,
+            16.0,
+            oMesh
+        );
+
+
+    const h1 =
+        new Atom(
+            name + "_H1",
+            ox - 0.9,
+            oy - 0.5,
+            oz,
+            0.4,
+            1.0,
+            h1Mesh
+        );
+
+
+    const h2 =
+        new Atom(
+            name + "_H2",
+            ox + 0.9,
+            oy - 0.5,
+            oz,
+            0.4,
+            1.0,
+            h2Mesh
+        );
+
+
+    mol.atoms.push(
+        o,
+        h1,
+        h2
+    );
+
+
+    // --------------------------------------------------------
+    // 初期位置
+    // --------------------------------------------------------
+
+    oMesh.position.set(
+        ox,
+        oy,
+        oz
+    );
+
+
+    h1Mesh.position.set(
+        ox - 0.9,
+        oy - 0.5,
+        oz
+    );
+
+
+    h2Mesh.position.set(
+        ox + 0.9,
+        oy - 0.5,
+        oz
+    );
+
+
+    // --------------------------------------------------------
+    // 結合線
+    // --------------------------------------------------------
+
+    function createLine() {
+
+        const geometry =
+            new THREE.BufferGeometry();
+
+
+        const vertices =
+            new Float32Array(6);
+
+
+        geometry.setAttribute(
+            'position',
+            new THREE.BufferAttribute(
+                vertices,
+                3
+            )
+        );
+
+
+        return new THREE.Line(
+            geometry,
+            lineMat
+        );
+    }
+
+
+    const l1 = createLine();
+
+    const l2 = createLine();
+
+
+    scene.add(
+        l1,
+        l2
+    );
+
+
+    // --------------------------------------------------------
+    // O-H結合
+    // --------------------------------------------------------
+
+    mol.bonds.push(
+        new Bond(
+            o,
+            h1,
+            400.0,
+            1.0,
+            l1
+        )
+    );
+
+
+    mol.bonds.push(
+        new Bond(
+            o,
+            h2,
+            400.0,
+            1.0,
+            l2
+        )
+    );
+
+
+    mol.updateBondLines();
+
+
+    worldMolecules.push(
+        mol
+    );
+}
+
+
+// ============================================================
+// 10. 水分子を2つ配置
+// ============================================================
+
+buildWater(
+    "Water_A",
+    -1.5,
+    0.0,
+    0.0
+);
+
+
+buildWater(
+    "Water_B",
+     1.5,
+     0.0,
+     0.0
+);
+
+
+// ============================================================
+// 11. ドラッグコントロール
+// ============================================================
+
+const dragControls =
+    new DragControls(
+        draggableObjects,
+        camera,
+        renderer.domElement
+    );
+
+
+dragControls.addEventListener(
+    'dragstart',
+    function(event) {
+
+        const mol =
+            event.object.userData.parentMolecule;
+
+        mol.isGrabbed = true;
+    }
+);
+
+
+dragControls.addEventListener(
+    'drag',
+    function(event) {
+
+        const mol =
+            event.object.userData.parentMolecule;
+
+
+        // 掴んだ酸素の移動量を計算
+
+        const oxygen =
+            mol.atoms[0];
+
+
+        const dx =
+            event.object.position.x -
+            oxygen.position.x;
+
+
+        const dy =
+            event.object.position.y -
+            oxygen.position.y;
+
+
+        const dz =
+            event.object.position.z -
+            oxygen.position.z;
+
+
+        // 分子全体を同じ量だけ移動
+
+        for (const atom of mol.atoms) {
+
+            atom.position.x += dx;
+            atom.position.y += dy;
+            atom.position.z += dz;
+
+
+            atom.mesh.position.set(
+                atom.position.x,
+                atom.position.y,
+                atom.position.z
+            );
+        }
+
+
+        mol.updateBondLines();
+    }
+);
+
+
+dragControls.addEventListener(
+    'dragend',
+    function(event) {
+
+        const mol =
+            event.object.userData.parentMolecule;
+
+        mol.isGrabbed = false;
+    }
+);
+
+
+// ============================================================
+// 12. 電磁気力
+// ============================================================
+
+const COULOMB_K = 950.0;
+
+
+// ============================================================
+// 13. アニメーション
+// ============================================================
+
+let previousTime =
+    performance.now();
+
+
+function animate(currentTime) {
+
+    requestAnimationFrame(
+        animate
+    );
+
+
+    // 実時間からdeltaTimeを計算
+
+    let deltaTime =
+        (currentTime - previousTime) / 1000.0;
+
+
+    previousTime =
+        currentTime;
+
+
+    // 暴走防止
+
+    deltaTime =
+        Math.min(deltaTime, 0.033);
+
+
+    // --------------------------------------------------------
+    // 1. 分子内バネ
+    // --------------------------------------------------------
+
+    for (const mol of worldMolecules) {
+
+        mol.applyInternalForces();
+    }
+
+
+    // --------------------------------------------------------
+    // 2. 分子間の電磁気力
+    // --------------------------------------------------------
+
+    for (
+        let i = 0;
+        i < worldMolecules.length;
+        i++
+    ) {
+
+        for (
+            let j = i + 1;
+            j < worldMolecules.length;
+            j++
+        ) {
+
+            const mol1 =
+                worldMolecules[i];
+
+            const mol2 =
+                worldMolecules[j];
+
+
+            for (const a1 of mol1.atoms) {
+
+                for (const a2 of mol2.atoms) {
+
+                    const dx =
+                        a2.position.x -
+                        a1.position.x;
+
+
+                    const dy =
+                        a2.position.y -
+                        a1.position.y;
+
+
+                    const dz =
+                        a2.position.z -
+                        a1.position.z;
+
+
+                    let distanceSq =
+                        dx * dx +
+                        dy * dy +
+                        dz * dz;
+
+
+                    // めり込み防止
+
+                    if (distanceSq < 0.3) {
+
+                        distanceSq = 0.3;
+                    }
+
+
+                    const forceMagnitude =
+                        COULOMB_K *
+                        (a1.charge * a2.charge) /
+                        distanceSq;
+
+
+                    const dir =
+                        new Vector3(
+                            dx,
+                            dy,
+                            dz
+                        ).normalized();
+
+
+                    /*
+                     * 同符号 → 反発
+                     * 異符号 → 引力
+                     */
+
+                    const sign =
+                        forceMagnitude < 0
+                            ? 1.0
+                            : -1.0;
+
+
+                    const forceVector =
+                        dir.multiply(
+                            Math.abs(forceMagnitude) *
+                            sign
+                        );
+
+
+                    a1.addForce(
+                        forceVector
+                    );
+
+
+                    a2.addForce(
+                        forceVector.multiply(-1.0)
+                    );
+                }
+            }
+        }
+    }
+
+
+    // --------------------------------------------------------
+    // 3. 原子位置更新
+    // --------------------------------------------------------
+
+    for (const mol of worldMolecules) {
+
+        mol.updateAtoms(
+            deltaTime
+        );
+
+        mol.updateBondLines();
+    }
+
+
+    // --------------------------------------------------------
+    // 4. 描画
+    // --------------------------------------------------------
+
+    renderer.render(
+        scene,
+        camera
+    );
+}
+
+
+// ============================================================
+// 14. 開始
+// ============================================================
+
+requestAnimationFrame(
+    animate
+);
+
+
+// ============================================================
+// 15. ウィンドウサイズ変更
+// ============================================================
+
+window.addEventListener(
+    'resize',
+    () => {
+
+        camera.aspect =
+            window.innerWidth /
+            window.innerHeight;
+
+
+        camera.updateProjectionMatrix();
+
+
+        renderer.setSize(
+            window.innerWidth,
+            window.innerHeight
+        );
+    }
+);
+
+</script>
+
+</body>
+</html>

@@ -11,18 +11,15 @@
             z-index: 10;
         }
     </style>
-    <!-- Import maps polyfill -->
-    <script async src="https://unpkg.com"></script>
-
-    <!-- 最新のライブラリのパスを正しく指定 -->
-    <script type="importmap">
-      {
-        "imports": {
-          "three": "https://unpkg.com",
-          "three/addons/": "https://unpkg.com"
-        }
-      }
-    </script>
+	<!-- Three.js / Import Map -->
+	<script type="importmap">
+	{
+	    "imports": {
+	        "three": "https://unpkg.com/three@0.180.0/build/three.module.js",
+	        "three/addons/": "https://unpkg.com/three@0.180.0/examples/jsm/"
+	    }
+	}
+	</script>
 </head>
 <body>
 
@@ -33,6 +30,7 @@
 </div>
 
 <script type="module">
+
 import * as THREE from 'three';
 import { DragControls } from 'three/addons/controls/DragControls.js';
 
@@ -118,6 +116,7 @@ class Molecule {
         for (let a of this.atoms) a.updatePosition(deltaTime);
     }
 }
+
 
 // ==========================================
 // 2. 3Dシーンと初期設定（Three.js）
@@ -241,7 +240,6 @@ function animate() {
 
     renderer.render(scene, camera);
 }
-
 // 実行開始
 animate();
 
