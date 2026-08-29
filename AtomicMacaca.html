@@ -202,7 +202,8 @@ dragControls.addEventListener('dragend', function (event) {
 // ==========================================
 // 4. メインループ（電磁気多体演算）
 // ==========================================
-const COULOMB_K = 950.0; // ネバネバ感を高めるために少し数値を強化
+//const COULOMB_K = 950.0; // ネバネバ感を高めるために少し数値を強化
+const COULOMB_K = 250.0; // 引力を弱めて現実味を出す
 const deltaTime = 0.016;
 
 function animate() {
