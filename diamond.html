@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>3Dダイヤモンド結晶構造シミュレーション</title>
+    <style>
+        body { margin: 0; overflow: hidden; background-color: #0f172a; }
+        #info {
+            position: absolute; top: 10px; left: 10px; color: white;
+            font-family: sans-serif; pointer-events: none; line-height: 1.5;
+            z-index: 10;
+        }
+    </style>
+<!-- Three.js / Import Map -->
+<script type="importmap">
+{
+    "imports": {
+        "three": "https://unpkg.com/three@0.180.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.180.0/examples/jsm/"
+    }
+}
+</script>
+
+</head>
+
+<body>
+<div id="info">
+    <h2>3Dダイヤモンド（炭素）結晶シミュレーション</h2>
+    <p>● グレーの球体（炭素原子）をマウスで左ドラッグして動かせます。</p>
+    <p>ダイヤモンド構造（正四面体結合）による非常に強固なネットワークを再現しています。</p>
+</div>
+
+
+<script type="module">
+
+import * as THREE from 'three';
+import { DragControls } from 'three/addons/controls/DragControls.js';
+
+
+// ==========================================
+// 1. 物理演算エンジン（ベクトル・原子・バネ）
+// ==========================================
+class Vector3 {
+    constructor(x = 0, y = 0, z = 0) { this.x = x; this.y = y; this.z = z; }
+    add(v) { return new Vector3(this.x + v.x, this.y + v.y, this.z + v.z); }
+    multiply(scalar) { return new Vector3(this.x * scalar, this.y * scalar, this.z * scalar); }
+    reset() { this.x = 0; this.y = 0; this.z = 0; }
+    normalized() {
+        const magnitude = Math.sqrt(this.x * this.x + this.y * this.y + this.z * this.z);
+        return magnitude > 0 ? new Vector3(this.x / magnitude, this.y / magnitude, this.z / magnitude) : new Vector3();
+    }
+}
+
+class CarbonAtom {
+    constructor(id, x, y, z, mesh) {
+        this.id = id;
+        this.position = new Vector3(x, y, z);
+        this.velocity = new Vector3();
+        this.accumulatedForce = new Vector3();
+        this.mass = 12.0; // 炭素の原子量
+        this.mesh = mesh;
+    }
+    addForce(force) { this.accumulatedForce = this.accumulatedForce.add(force); }
+    updatePosition(deltaTime, isGrabbed) {
+        if (isGrabbed) {
+            this.position.x = this.mesh.position.x;
+            this.position.y = this.mesh.position.y;
+            this.position.z = this.mesh.position.z;
+            this.velocity.reset();
+            this.accumulatedForce.reset();
+            return;
+        }
+        const acceleration = this.accumulatedForce.multiply(1.0 / this.mass);
+        this.velocity = this.velocity.add(acceleration.multiply(deltaTime));
+        this.velocity = this.velocity.multiply(0.65); // 振動を早く鎮めるための減衰
+        this.position = this.position.add(this.velocity.multiply(deltaTime));
+        this.accumulatedForce.reset();
+        
+        this.mesh.position.set(this.position.x, this.position.y, this.position.z);
+    }
+}
+
+class CovalentBond {
+    constructor(a1, a2, k, len, lineMesh) {
+        this.atom1 = a1; this.atom2 = a2; this.springConstant = k; this.restLength = len;
+        this.lineMesh = lineMesh;
+    }
+    applySpringForce() {
+        const dx = this.atom2.position.x - this.atom1.position.x;
+        const dy = this.atom2.position.y - this.atom1.position.y;
+        const dz = this.atom2.position.z - this.atom1.position.z;
+        const distance = Math.sqrt(dx*dx + dy*dy + dz*dz);
+        if (distance === 0) return;
+
+        const displacement = distance - this.restLength;
+        const forceMagnitude = this.springConstant * displacement;
+        const forceVector = new Vector3(dx, dy, dz).normalized().multiply(forceMagnitude);
+
+        this.atom1.addForce(forceVector);
+        this.atom2.addForce(forceVector.multiply(-1.0));
+
+        // 線の描画更新
+        const positions = this.lineMesh.geometry.attributes.position.array;
+        positions[0] = this.atom1.position.x; positions[1] = this.atom1.position.y; positions[2] = this.atom1.position.z;
+        positions[3] = this.atom2.position.x; positions[4] = this.atom2.position.y; positions[5] = this.atom2.position.z;
+        this.lineMesh.geometry.attributes.position.needsUpdate = true;
+    }
+}
+
+// ==========================================
+// 2. 3Dシーンとダイヤモンド構造の自動生成
+// ==========================================
+const scene = new THREE.Scene();
+const camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 0.1, 100);
+camera.position.set(3, 3, 6);
+camera.lookAt(1, 1, 1);
+
+const renderer = new THREE.WebGLRenderer({ antialias: true });
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+const light1 = new THREE.DirectionalLight(0xffffff, 1.5); light1.position.set(5, 8, 5); scene.add(light1);
+const light2 = new THREE.AmbientLight(0x444444); scene.add(light2);
+
+const carbonGeo = new THREE.SphereGeometry(0.2, 32, 32);
+const carbonMat = new THREE.MeshPhongMaterial({ color: 0x64748b, shininess: 60 }); // 炭素（グレー）
+const bondMat = new THREE.LineBasicMaterial({ color: 0xcbd5e1, linewidth: 3 });
+
+const atoms = [];
+const bonds = [];
+const draggableObjects = [];
+let grabbedAtomMesh = null;
+
+// ダイヤモンドの単位格子（結晶構造）を生成する関数
+// L = 格子のサイズ, 理想の結合距離 = L * sqrt(3)/4
+const L = 2.5; 
+const bondLength = L * Math.sqrt(3) / 4; 
+const springK =  5000.0; // 非常に硬いバネ
+
+// 原子を追加するヘルパー
+function addCarbon(x, y, z) {
+    const id = `C_${atoms.length}`;
+    const mesh = new THREE.Mesh(carbonGeo, carbonMat);
+    mesh.position.set(x, y, z);
+    scene.add(mesh);
+    draggableObjects.push(mesh);
+
+    const atom = new CarbonAtom(id, x, y, z, mesh);
+    mesh.userData = { atom: atom };
+    atoms.push(atom);
+    return atom;
+}
+
+// バネ（結合）を追加するヘルパー
+function connectAtoms(a1, a2) {
+    // 重複結合チェック
+    for (let b of bonds) {
+        if ((b.atom1 === a1 && b.atom2 === a2) || (b.atom1 === a2 && b.atom2 === a1)) return;
+    }
+    const geometry = new THREE.BufferGeometry();
+    geometry.setAttribute('position', new THREE.BufferAttribute(new Float32Array(6), 3));
+    const line = new THREE.Line(geometry, bondMat);
+    scene.add(line);
+
+    bonds.push(new CovalentBond(a1, a2, springK, bondLength, line));
+}
+
+// --- ダイヤモンド構造の幾何配置（1つの単位格子内の代表的な原子群） ---
+// 1. 面心立方格子（外枠の角と面の中央）の原子
+const basePositions = [ [L,0,0], [0,L,0], [L,L,0],
+    [0,0,L], [L,0,L], [0,L,L], [L,L,L],
+    [L/2, L/2, 0], [L/2, L/2, L],
+    [L/2, 0, L/2], [L/2, L, L/2],
+    [0, L/2, L/2], [L, L/2, L/2]
+];
+// 2. 内部に浮く4つの原子（正四面体ギャップ）
+const innerPositions = [
+    [L/4, L/4, L/4],
+    [3*L/4, 3*L/4, L/4],
+    [L/4, 3*L/4, 3*L/4],
+    [3*L/4, L/4, 3*L/4]
+];
+
+const allPos = [...basePositions, ...innerPositions];
+for (let p of allPos) {
+    addCarbon(p[0], p[1], p[2]);
+}
+
+// 距離が結合距離に近い原子同士を自動でバネで繋ぐ
+const tolerance = 0.1; // 計算上の微小なズレを許容
+for (let i = 0; i < atoms.length; i++) {
+    for (let j = i + 1; j < atoms.length; j++) {
+        const dx = atoms[i].position.x - atoms[j].position.x;
+        const dy = atoms[i].position.y - atoms[j].position.y;
+        const dz = atoms[i].position.z - atoms[j].position.z;
+        const dist = Math.sqrt(dx*dx + dy*dy + dz*dz);
+        
+        if (Math.abs(dist - bondLength) < tolerance) {
+            connectAtoms(atoms[i], atoms[j]);
+        }
+    }
+}
+
+// ==========================================
+// 3. マウス操作
+// ==========================================
+const dragControls = new DragControls(draggableObjects, camera, renderer.domElement);
+
+dragControls.addEventListener('dragstart', function (event) {
+    grabbedAtomMesh = event.object;
+});
+
+dragControls.addEventListener('dragend', function (event) {
+    grabbedAtomMesh = null;
+});
+
+// ==========================================
+// 4. メインループ
+// ==========================================
+const deltaTime = 0.016;
+
+function animate() {
+    requestAnimationFrame(animate);
+
+    // バネの力を適用（強固な共有結合ネットワーク）
+    for (let b of bonds) b.applySpringForce();
+
+    // 位置更新
+    for (let a of atoms) {
+        const isGrabbed = (a.mesh === grabbedAtomMesh);
+        a.updatePosition(deltaTime, isGrabbed);
+    }
+
+    renderer.render(scene, camera);
+}
+
+animate();
+
+window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+});
+</script>
+</body>
+</html>

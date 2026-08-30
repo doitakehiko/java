@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<title>3Dダイヤモンド結晶構造シミュレーション</title>
+
+<style>
+    body {
+        margin: 0;
+        overflow: hidden;
+        background-color: #0f172a;
+    }
+
+    #info {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        color: white;
+        font-family: sans-serif;
+        pointer-events: none;
+        line-height: 1.5;
+        z-index: 10;
+    }
+
+    #info h2 {
+        margin: 0 0 10px 0;
+    }
+
+    #info p {
+        margin: 4px 0;
+    }
+</style>
+
+<script type="importmap">
+{
+    "imports": {
+        "three": "https://unpkg.com/three@0.180.0/build/three.module.js",
+        "three/addons/": "https://unpkg.com/three@0.180.0/examples/jsm/"
+    }
+}
+</script>
+```
+
+</head>
+
+<body>
+
+<div id="info">
+    <h2>3Dダイヤモンド（炭素）結晶シミュレーション</h2>
+    <p>● グレーの球体を左ドラッグして引っ張れます。</p>
+    <p>● 炭素原子は4本の共有結合を持ちます。</p>
+    <p>● 結合距離と結合角（109.47°）を維持します。</p>
+    <p>● ダイヤモンドらしい硬い結晶格子をバネモデルで再現しています。</p>
+</div>
+
+<script type="module">
+
+import * as THREE from 'three';
+import { DragControls } from 'three/addons/controls/DragControls.js';
+
+
+// ============================================================
+// 1. 独自Vector3
+// ============================================================
+
+class Vector3 {
+
+    constructor(x = 0, y = 0, z = 0) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
+
+    add(v) {
+        return new Vector3(
+            this.x + v.x,
+            this.y + v.y,
+            this.z + v.z
+        );
+    }
+
+    subtract(v) {
+        return new Vector3(
+            this.x - v.x,
+            this.y - v.y,
+            this.z - v.z
+        );
+    }
+
+    multiply(s) {
+        return new Vector3(
+            this.x * s,
+            this.y * s,
+            this.z * s
+        );
+    }
+
+    dot(v) {
+        return (
+            this.x * v.x +
+            this.y * v.y +
+            this.z * v.z
+        );
+    }
+
+    cross(v) {
+        return new Vector3(
+            this.y * v.z - this.z * v.y,
+            this.z * v.x - this.x * v.z,
+            this.x * v.y - this.y * v.x
+        );
+    }
+
+    length() {
+        return Math.sqrt(
+            this.x * this.x +
+            this.y * this.y +
+            this.z * this.z
+        );
+    }
+
+    normalized() {
+
+        const len = this.length();
+
+        if (len < 0.000001) {
+            return new Vector3();
+        }
+
+        return new Vector3(
+            this.x / len,
+            this.y / len,
+            this.z / len
+        );
+    }
+
+    reset() {
+        this.x = 0;
+        this.y = 0;
+        this.z = 0;
+    }
+}
+
+
+// ============================================================
+// 2. 炭素原子
+// ============================================================
+
+class CarbonAtom {
+
+    constructor(id, x, y, z, mesh) {
+
+        this.id = id;
+
+        this.position =
+            new Vector3(x, y, z);
+
+        this.velocity =
+            new Vector3();
+
+        this.accumulatedForce =
+            new Vector3();
+
+        this.mass = 12.0;
+
+        this.mesh = mesh;
+
+        // 接続されている原子
+        this.neighbors = [];
+    }
+
+
+    addForce(force) {
+
+        this.accumulatedForce =
+            this.accumulatedForce.add(force);
+    }
+
+
+    updatePosition(dt, grabbed) {
+
+        // ドラッグ中の原子はマウスに完全追従
+        if (grabbed) {
+
+            this.position.x =
+                this.mesh.position.x;
+
+            this.position.y =
+                this.mesh.position.y;
+
+            this.position.z =
+                this.mesh.position.z;
+
+            this.velocity.reset();
+
+            this.accumulatedForce.reset();
+
+            return;
+        }
+
+
+        // F = ma
+        const acceleration =
+            this.accumulatedForce
+                .multiply(1.0 / this.mass);
+
+
+        // v = v + at
+        this.velocity =
+            this.velocity.add(
+                acceleration.multiply(dt)
+            );
+
+
+        // 強めの空気抵抗
+        this.velocity =
+            this.velocity.multiply(0.72);
+
+
+        // x = x + vt
+        this.position =
+            this.position.add(
+                this.velocity.multiply(dt)
+            );
+
+
+        this.accumulatedForce.reset();
+
+
+        this.mesh.position.set(
+            this.position.x,
+            this.position.y,
+            this.position.z
+        );
+    }
+}
+
+
+// ============================================================
+// 3. 共有結合
+// ============================================================
+
+class CovalentBond {
+
+    constructor(
+        atom1,
+        atom2,
+        springConstant,
+        restLength,
+        lineMesh
+    ) {
+
+        this.atom1 = atom1;
+        this.atom2 = atom2;
+
+        this.springConstant =
+            springConstant;
+
+        this.restLength =
+            restLength;
+
+        this.lineMesh =
+            lineMesh;
+    }
+
+
+    applySpringForce() {
+
+        const delta =
+            this.atom2.position
+                .subtract(this.atom1.position);
+
+
+        const distance =
+            delta.length();
+
+
+        if (distance < 0.000001) {
+            return;
+        }
+
+
+        // フックの法則
+        const displacement =
+            distance - this.restLength;
+
+
+        const force =
+            delta.normalized()
+                .multiply(
+                    this.springConstant *
+                    displacement
+                );
+
+
+        this.atom1.addForce(force);
+
+        this.atom2.addForce(
+            force.multiply(-1)
+        );
+    }
+
+
+    updateLine() {
+
+        const positions =
+            this.lineMesh.geometry
+                .attributes.position.array;
+
+
+        positions[0] =
+            this.atom1.position.x;
+
+        positions[1] =
+            this.atom1.position.y;
+
+        positions[2] =
+            this.atom1.position.z;
+
+
+        positions[3] =
+            this.atom2.position.x;
+
+        positions[4] =
+            this.atom2.position.y;
+
+        positions[5] =
+            this.atom2.position.z;
+
+
+        this.lineMesh.geometry
+            .attributes
+            .position
+            .needsUpdate = true;
+    }
+}
+
+
+// ============================================================
+// 4. 結合角
+// ============================================================
+//
+// ダイヤモンドのsp3結合角
+//
+// 109.47°
+//
+// 1個の炭素原子から出る4本の結合を
+// 正四面体になるように維持する。
+// ============================================================
+
+class BondAngle {
+
+    constructor(
+        center,
+        atom1,
+        atom2,
+        targetAngle,
+        stiffness
+    ) {
+        this.center = center;
+        this.atom1 = atom1;
+        this.atom2 = atom2;
+        this.targetAngle = targetAngle;
+        this.stiffness = stiffness;
+    }
+
+    applyForce() {
+
+        // 中心原子から見た2本の結合ベクトル
+        const r1 =
+            this.atom1.position.subtract(
+                this.center.position
+            );
+
+        const r2 =
+            this.atom2.position.subtract(
+                this.center.position
+            );
+
+        const len1 = r1.length();
+        const len2 = r2.length();
+
+        if (len1 < 0.000001 || len2 < 0.000001) {
+            return;
+        }
+
+        const u = r1.normalized();
+        const v = r2.normalized();
+
+        // cos(theta)
+        let cosTheta = u.dot(v);
+
+        cosTheta = Math.max(
+            -0.999999,
+            Math.min(0.999999, cosTheta)
+        );
+
+        const theta = Math.acos(cosTheta);
+
+        // 目標角との差
+        const angleError =
+            theta - this.targetAngle;
+
+        if (Math.abs(angleError) < 0.000001) {
+            return;
+        }
+
+        // sin(theta)
+        const sinTheta =
+            Math.sqrt(
+                Math.max(
+                    1.0 - cosTheta * cosTheta,
+                    0.000001
+                )
+            );
+
+        // ----------------------------------------------------
+        // d(theta)/d(r1)
+        // d(theta)/d(r2)
+        //
+        // 角度ポテンシャル
+        //
+        // E = 1/2 * k * (theta - theta0)^2
+        // ----------------------------------------------------
+
+        const dThetaDr1 =
+            u.multiply(cosTheta)
+                .subtract(v)
+                .multiply(
+                    1.0 / (len1 * sinTheta)
+                );
+
+        const dThetaDr2 =
+            v.multiply(cosTheta)
+                .subtract(u)
+                .multiply(
+                    1.0 / (len2 * sinTheta)
+                );
+
+        // F = -dE/dr
+        const forceScale =
+            -this.stiffness * angleError;
+
+        const force1 =
+            dThetaDr1.multiply(forceScale);
+
+        const force2 =
+            dThetaDr2.multiply(forceScale);
+
+        // 2つの外側原子に力
+        this.atom1.addForce(force1);
+        this.atom2.addForce(force2);
+
+        // 中心原子には反作用
+        this.center.addForce(
+            force1.add(force2).multiply(-1)
+        );
+    }
+}
+
+// ============================================================
+// 5. Three.js シーン
+// ============================================================
+
+const scene =
+    new THREE.Scene();
+
+
+const camera =
+    new THREE.PerspectiveCamera(
+        60,
+        window.innerWidth /
+        window.innerHeight,
+        0.1,
+        200
+    );
+
+
+// 3×3×3セルを見渡せる位置
+camera.position.set(
+    8,
+    8,
+    12
+);
+
+
+camera.lookAt(
+    3.75,
+    3.75,
+    3.75
+);
+
+
+// ============================================================
+// Renderer
+// ============================================================
+
+const renderer =
+    new THREE.WebGLRenderer({
+        antialias: true
+    });
+
+
+renderer.setSize(
+    window.innerWidth,
+    window.innerHeight
+);
+
+
+renderer.setPixelRatio(
+    Math.min(
+        window.devicePixelRatio,
+        2
+    )
+);
+
+
+document.body.appendChild(
+    renderer.domElement
+);
+
+
+// ============================================================
+// Lights
+// ============================================================
+
+const light1 =
+    new THREE.DirectionalLight(
+        0xffffff,
+        1.8
+    );
+
+light1.position.set(
+    10,
+    15,
+    10
+);
+
+scene.add(light1);
+
+
+const light2 =
+    new THREE.AmbientLight(
+        0x555555
+    );
+
+scene.add(light2);
+
+
+// ============================================================
+// 6. 原子・結合パラメータ
+// ============================================================
+
+// ダイヤモンド単位格子
+const L = 2.5;
+
+
+// 最近接炭素間距離
+const bondLength =
+    L * Math.sqrt(3) / 4;
+
+
+// ★ 結合バネ定数
+//
+// 元の800よりかなり強くする。
+// ただし大きすぎると数値計算が不安定になるため、
+// ここでは3000程度にしている。
+const springK = 3000;
+
+
+// ★ 結合角の硬さ
+const angleK = 150;
+
+
+// ダイヤモンドの正四面体角
+const tetrahedralAngle =
+    109.4712206 *
+    Math.PI / 180;
+
+
+// ============================================================
+// 原子の見た目
+// ============================================================
+
+const carbonGeo =
+    new THREE.SphereGeometry(
+        0.18,
+        24,
+        24
+    );
+
+
+const carbonMat =
+    new THREE.MeshPhongMaterial({
+        color: 0x64748b,
+        shininess: 80
+    });
+
+
+const bondMat =
+    new THREE.LineBasicMaterial({
+        color: 0xcbd5e1
+    });
+
+
+const atoms = [];
+
+const bonds = [];
+
+const angles = [];
+
+const draggableObjects = [];
+
+let grabbedAtomMesh = null;
+
+
+// ============================================================
+// 7. 原子追加
+// ============================================================
+
+function addCarbon(x, y, z) {
+
+    const id =
+        `C_${atoms.length}`;
+
+
+    const mesh =
+        new THREE.Mesh(
+            carbonGeo,
+            carbonMat
+        );
+
+
+    mesh.position.set(
+        x,
+        y,
+        z
+    );
+
+
+    scene.add(mesh);
+
+    draggableObjects.push(mesh);
+
+
+    const atom =
+        new CarbonAtom(
+            id,
+            x,
+            y,
+            z,
+            mesh
+        );
+
+
+    mesh.userData.atom =
+        atom;
+
+
+    atoms.push(atom);
+
+
+    return atom;
+}
+
+
+// ============================================================
+// 8. 結合追加
+// ============================================================
+
+function connectAtoms(a1, a2) {
+
+    // 重複チェック
+    for (const bond of bonds) {
+
+        if (
+            (bond.atom1 === a1 &&
+             bond.atom2 === a2) ||
+
+            (bond.atom1 === a2 &&
+             bond.atom2 === a1)
+        ) {
+            return;
+        }
+    }
+
+
+    const geometry =
+        new THREE.BufferGeometry();
+
+
+    geometry.setAttribute(
+        'position',
+        new THREE.BufferAttribute(
+            new Float32Array(6),
+            3
+        )
+    );
+
+
+    const line =
+        new THREE.Line(
+            geometry,
+            bondMat
+        );
+
+
+    scene.add(line);
+
+
+    const bond =
+        new CovalentBond(
+            a1,
+            a2,
+            springK,
+            bondLength,
+            line
+        );
+
+
+    bonds.push(bond);
+
+
+    // 隣接情報
+    a1.neighbors.push(a2);
+    a2.neighbors.push(a1);
+}
+
+
+// ============================================================
+// 9. ダイヤモンド結晶構造生成
+// ============================================================
+//
+// ダイヤモンド構造は
+//
+// FCC + (1/4,1/4,1/4)
+//
+// という構造になっている。
+//
+// ここでは3×3×3セルを生成する。
+// ============================================================
+
+const cells = 3;
+
+
+for (let cx = 0; cx < cells; cx++) {
+
+    for (let cy = 0; cy < cells; cy++) {
+
+        for (let cz = 0; cz < cells; cz++) {
+
+
+            const ox =
+                cx * L;
+
+            const oy =
+                cy * L;
+
+            const oz =
+                cz * L;
+
+
+            // FCC格子点
+            const basePositions = [
+
+                [0, 0, 0],
+
+                [0.5, 0.5, 0],
+
+                [0.5, 0, 0.5],
+
+                [0, 0.5, 0.5]
+            ];
+
+
+            // ダイヤモンド構造の内部原子
+            const innerPositions = [
+
+                [0.25, 0.25, 0.25],
+
+                [0.75, 0.75, 0.25],
+
+                [0.75, 0.25, 0.75],
+
+                [0.25, 0.75, 0.75]
+            ];
+
+
+            for (
+                const p of [
+                    ...basePositions,
+                    ...innerPositions
+                ]
+            ) {
+
+                addCarbon(
+                    ox + p[0] * L,
+                    oy + p[1] * L,
+                    oz + p[2] * L
+                );
+            }
+        }
+    }
+}
+
+
+// ============================================================
+// 10. 最近接原子を結合
+// ============================================================
+
+const tolerance = 0.08;
+
+
+for (
+    let i = 0;
+    i < atoms.length;
+    i++
+) {
+
+    for (
+        let j = i + 1;
+        j < atoms.length;
+        j++
+    ) {
+
+        const delta =
+            atoms[j].position
+                .subtract(
+                    atoms[i].position
+                );
+
+
+        const distance =
+            delta.length();
+
+
+        if (
+            Math.abs(
+                distance -
+                bondLength
+            ) < tolerance
+        ) {
+
+            connectAtoms(
+                atoms[i],
+                atoms[j]
+            );
+        }
+    }
+}
+
+
+// ============================================================
+// 11. 結合角を生成
+// ============================================================
+//
+// 各炭素について、隣接する4原子の組み合わせ
+// 6通りを調べる。
+// ============================================================
+
+for (const center of atoms) {
+
+    const neighbors =
+        center.neighbors;
+
+
+    for (
+        let i = 0;
+        i < neighbors.length;
+        i++
+    ) {
+
+        for (
+            let j = i + 1;
+            j < neighbors.length;
+            j++
+        ) {
+
+            angles.push(
+                new BondAngle(
+                    center,
+                    neighbors[i],
+                    neighbors[j],
+                    tetrahedralAngle,
+                    angleK
+                )
+            );
+        }
+    }
+}
+
+
+// ============================================================
+// 12. ドラッグ操作
+// ============================================================
+
+const dragControls =
+    new DragControls(
+        draggableObjects,
+        camera,
+        renderer.domElement
+    );
+
+
+dragControls.addEventListener(
+    'dragstart',
+    function (event) {
+
+        grabbedAtomMesh =
+            event.object;
+    }
+);
+
+
+dragControls.addEventListener(
+    'dragend',
+    function () {
+
+        grabbedAtomMesh = null;
+    }
+);
+
+
+// ============================================================
+// 13. 物理演算
+// ============================================================
+
+const clock =
+    new THREE.Clock();
+
+
+function simulate(dt) {
+
+    // --------------------------------------------------------
+    // 結合距離
+    // --------------------------------------------------------
+
+    for (const bond of bonds) {
+
+        bond.applySpringForce();
+    }
+
+
+    // --------------------------------------------------------
+    // 結合角
+    // --------------------------------------------------------
+
+    for (const angle of angles) {
+
+        angle.applyForce();
+    }
+
+
+    // --------------------------------------------------------
+    // 位置更新
+    // --------------------------------------------------------
+
+    for (const atom of atoms) {
+
+        const grabbed =
+            atom.mesh ===
+            grabbedAtomMesh;
+
+
+        atom.updatePosition(
+            dt,
+            grabbed
+        );
+    }
+
+
+    // --------------------------------------------------------
+    // 結合線更新
+    // --------------------------------------------------------
+
+    for (const bond of bonds) {
+
+        bond.updateLine();
+    }
+}
+
+
+// ============================================================
+// 14. メインループ
+// ============================================================
+
+function animate() {
+
+    requestAnimationFrame(
+        animate
+    );
+
+
+    // フレームレートに依存しすぎないようにする
+    let dt =
+        clock.getDelta();
+
+
+    // 大きすぎるdtを制限
+    dt =
+        Math.min(
+            dt,
+            0.02
+        );
+
+
+    // 物理計算を複数回行う
+    //
+    // 硬いバネは1回の計算だけだと
+    // 数値的に不安定になりやすいため。
+    const subSteps = 3;
+
+    const subDt =
+        dt / subSteps;
+
+
+    for (
+        let i = 0;
+        i < subSteps;
+        i++
+    ) {
+
+        simulate(subDt);
+    }
+
+
+    renderer.render(
+        scene,
+        camera
+    );
+}
+
+
+animate();
+
+
+// ============================================================
+// 15. ウィンドウサイズ変更
+// ============================================================
+
+window.addEventListener(
+    'resize',
+    () => {
+
+        camera.aspect =
+            window.innerWidth /
+            window.innerHeight;
+
+
+        camera.updateProjectionMatrix();
+
+
+        renderer.setSize(
+            window.innerWidth,
+            window.innerHeight
+        );
+
+
+        renderer.setPixelRatio(
+            Math.min(
+                window.devicePixelRatio,
+                2
+            )
+        );
+    }
+);
+
+</script>
+
+</body>
+</html>
