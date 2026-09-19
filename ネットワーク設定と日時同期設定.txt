@@ -111,7 +111,7 @@ timedatectl status
 
 sleepは20秒待たないと反映されない場合がある
 
-私の環境では(ネットワークがおかしくて事項動機が失敗する場合はネットワークをrestartしてみる)
+私の環境では(ネットワークがおかしくて時刻同期が失敗する場合はネットワークをrestartしてみる)
  sudo systemctl restart systemd-networkd
 でネットワークをリスタートした後に
  sudo systemctl restart systemd-timesyncd
