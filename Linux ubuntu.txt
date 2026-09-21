@@ -1,0 +1,14 @@
+Linux ubuntu
+以下をDockerで動かす
+web application server  : Nginx php laravel multi database
+source database server  : mysql 
+replica database server : mysql 
+logging server          : loki grafana
+logging server以外vectorを入れてログを収集する
+
+Dockerに入れずにosが直で動かす
+Orchestration server    : Kubernetes
+
+
+windows
+intranet client         : c#

@@ -1,0 +1,11 @@
+loki grafana vector setup
+
+
+# Vector を停止
+sudo systemctl stop vector
+
+# Loki を停止
+sudo systemctl stop loki
+
+# Grafana を停止
+sudo systemctl stop grafana-server

@@ -3,7 +3,7 @@ ProxySQLでsqlロードバランサ―構築およびC#サンプルコード
 ProxySQLでコマンド
 
 ProxySQLのインストール
-https://github.com/sysown/proxysql/releases/download/v3.0.9//proxysql_3.0.9-ubuntu24_amd64.deb
+https://github.com/sysown/proxysql/releases/download/v3.0.11/proxysql_3.0.9-ubuntu24_amd64.deb
 sudo dpkg -i proxysql_3.0.9-ubuntu24_amd64.deb
  sudo systemctl start proxysql
  sudo systemctl enable proxysql
