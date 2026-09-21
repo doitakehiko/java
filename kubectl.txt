@@ -1,0 +1,31 @@
+現代的なシステムアーキテクチャお試し方法
+Kubernetes 
+docker
+vector
+Loki Grafana
+mysql-source
+mysql-replica
+Nginx & PHP Laravel
+をパソコン1つに構築する方法
+
+Linuxクリーンインストール後のパソコンを使うとわかりやすい
+httpdやmysql、vectorなどが動いていたら停止と無効化する
+
+curl -sfL https://get.k3s.io | sh -
+
+
+sudo kubectl get nodes
+
+
+vi app-stack.yaml
+https://github.com/doitakehiko/LearningProgrammingLanguages/blob/main/app-stack.yaml
+
+
+sudo kubectl apply -f app-stack.yaml
+
+sleep 10
+
+
+sudo kubectl get pods -n test-env
+STATUS 
+Running
