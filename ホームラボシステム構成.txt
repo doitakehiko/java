@@ -9,6 +9,8 @@ logging server以外vectorを入れてログを収集する
 Dockerに入れずにosが直で動かす
 Orchestration server    : Kubernetes
 
+backup server
+Bareos
 
 windows
 intranet client         : c#
