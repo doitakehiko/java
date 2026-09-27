@@ -1,2 +1,0 @@
-sudo docker ps
-sudo docker stop 5036d21d75e2

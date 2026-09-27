@@ -1,0 +1,63 @@
+# リポジトリの更新と必要なパッケージのインストール
+sudo apt update
+
+sudo apt upgrade
+
+sudo apt install -y ca-certificates curl gnupg
+
+# Docker公式のGPG鍵を追加
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+# リポジトリをAPTソースに追加
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+# Dockerのインストール
+sudo apt update
+sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+
+sudo chmod 777 /urbackup-storage
+
+
+cd ~/urbackup
+nano docker-compose.yml
+services:
+  urbackup:
+    image: uroni/urbackup-server:latest  # ← 「uroni/」を追加！
+    container_name: urbackup-server
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Tokyo
+    volumes:
+      - ./data:/var/urbackup
+      - /urbackup-storage:/backups
+    network_mode: "host"
+
+
+sudo docker compose up -d
+
+
+sudo ufw allow 55414/tcp
+sudo ufw allow 55415/tcp
+sudo ufw allow 35623/udp
+
+ブラウザで開く
+http://192.168.1.youraddress:55414/
+
+add client
+名前を入れる
+
+windowsの場合exeをダウンロードしてインストール
+トレイで＾をクリック、データベースみたいなアイコンを右クリックしてsetting
+Server URL cliant connect to:
+urbackup://192.168.1.youraddresss
+
+トレイで＾をクリック、データベースみたいなアイコンを右クリックしてstatusを見て進んでいれば成功
+
+
+

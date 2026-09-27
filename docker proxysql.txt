@@ -1,0 +1,86 @@
+# リポジトリの更新と必要なパッケージのインストール
+sudo apt update
+
+sudo apt upgrade
+
+sudo apt install -y ca-certificates curl gnupg
+
+# Docker公式のGPG鍵を追加
+sudo install -m 0755 -d /etc/apt/keyrings
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+sudo chmod a+r /etc/apt/keyrings/docker.gpg
+
+# リポジトリをAPTソースに追加
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+
+# Dockerのインストール
+sudo apt update
+sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+
+
+
+
+docker run -d \
+  --name proxysql \
+  -p 6032:6032 \
+  -p 6033:6033 \
+  --restart unless-stopped \
+  proxysql/proxysql:latest
+
+
+# コンテナ内のmysqlクライアントを使って管理インターフェース(6032)に接続
+docker exec -it proxysql mysql -u admin -padmin -h 127.0.0.1 -P 6032
+
+
+-- マスター (ホストグループ 10) の登録
+INSERT INTO mysql_servers(hostgroup_id, hostname, port, max_connections) VALUES (10, '192.168.1.32', 3306, 1000);
+
+-- レプリカ (ホストグループ 20) の登録
+INSERT INTO mysql_servers(hostgroup_id, hostname, port, max_connections) VALUES (20, '192.168.1.129', 3306, 1000);
+
+
+-- 設定を反映＆保存
+LOAD MYSQL SERVERS TO RUNTIME;
+SAVE MYSQL SERVERS TO DISK;
+
+
+-- ① SELECT ... FOR UPDATE 構文はデータを更新する可能性があるのでマスター(10)へ
+INSERT INTO mysql_query_rules (rule_id, active, match_pattern, destination_hostgroup, apply) 
+VALUES (1, 1, '^SELECT.*FOR UPDATE$', 10, 1);
+
+-- ② 通常の SELECT クエリはレプリカ(20)へ
+INSERT INTO mysql_query_rules (rule_id, active, match_pattern, destination_hostgroup, apply) 
+VALUES (2, 1, '^SELECT', 20, 1);
+
+-- 設定を反映＆保存
+LOAD MYSQL QUERY RULES TO RUNTIME;
+SAVE MYSQL QUERY RULES TO DISK;
+
+
+
+-- デフォルトの接続先をマスター(10)としてユーザーを登録
+INSERT INTO mysql_users(username, password, default_hostgroup) VALUES ('takehiko', 'goku1nama1', 10);
+
+-- 設定を反映＆保存
+LOAD MYSQL USERS TO RUNTIME;
+SAVE MYSQL USERS TO DISK;
+
+
+SELECT hostgroup, stats_mysql_query_digest.hostgroup_id, schemaname, username, digest_text, count_star 
+FROM stats_mysql_query_digest;
+
+
+# ホスト側にデータ保存用ディレクトリを作成
+sudo mkdir -p /var/lib/proxysql
+
+# データを永続化して起動
+sudo docker run -d \
+  --name proxysql \
+  -p 6032:6032 \
+  -p 6033:6033 \
+  -v /var/lib/proxysql:/var/lib/proxysql \
+  --restart unless-stopped \
+  proxysql/proxysql:latest
