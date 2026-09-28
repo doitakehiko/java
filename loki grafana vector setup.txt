@@ -1,6 +1,100 @@
 loki grafana vector setup
 
+#loki install start
 
+curl -O -L "https://github.com/grafana/loki/releases/download/v3.7.8/loki-linux-amd64.zip"
+sudo apt install unzip
+unzip loki-linux-amd64.zip
+sudo curl  -o /etc/loki/loki-local-config.yaml   https://raw.githubusercontent.com/grafana/loki/master/cmd/loki/loki-local-config.yaml
+
+sudo vi /etc/systemd/system/loki.service
+[Unit]
+Description=Grafana Loki
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/loki -config.file=/etc/loki/loki-local-config.yaml
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
+#end /etc/systemd/system/loki.service
+
+#loki install end
+
+
+
+#grafana install start
+
+wget https://dl.grafana.com/grafana-enterprise/release/13.2.2/grafana-enterprise_13.2.2_34846740809_linux_amd64.deb
+sudo dpkg -i grafana-enterprise_13.2.2_34846740809_linux_amd64.deb
+sudo /bin/systemctl start grafana-server
+
+sudo ufw allow from 192.168.1.0/24 to any port 3000
+
+
+#grafana install end
+
+
+
+#vector install start
+vectorはgrafana serverにはインストールしない
+vectorはログをlokiに送るプログラムでログを吐くアプリケーションサーバーやデータベースサーバー、プロキシサーバーに入れる
+
+
+sudo mkdir -p /usr/share/keyrings/
+curl -fsSL https://keys.datadoghq.com/DATADOG_APT_KEY_CURRENT.public | sudo gpg --dearmor -o /usr/share/keyrings/datadog-archive-keyring.gpg
+echo "deb [signed-by=/usr/share/keyrings/datadog-archive-keyring.gpg] https://apt.vector.dev stable main" | sudo tee /etc/apt/sources.list.d/vector.list
+
+
+bash -c "$(curl -L https://setup.vector.dev)"
+
+sudo apt-get update && sudo apt-get install -y vector
+
+
+sudo vi /etc/vector/vector.yaml
+
+
+# 1. ログの収集元: このLinuxマシンのシステムログ（Journald）
+sources:
+  linux_sys:
+    type: "journald"
+
+# 2. ラベルの付与: どのマシンから来たログか分かるように識別子をつける
+transforms:
+  add_labels:
+    type: "remap"
+    inputs:
+      - "linux_syslog"
+    source: |
+      .environment = "test-env"
+      .hostname = "hogehoge-linux"  # Linuxの名前（任意）
+      .job = "vector-test"
+
+# 3. ログの送信先: 別PCにあるLokiサーバー（192.168.1.134）
+sinks:
+  loki_output:
+    type: "loki"
+    inputs:
+      - "add_labels"
+    endpoint: "http://192.168.1.134:3100"  # ロギングサーバーのIP
+    encoding:
+      codec: "json"
+    labels:
+      environment: "{{ environment }}"
+      hostname: "{{ hostname }}"
+      job: "{{ job }}"
+
+# end /etc/vector/vector.yaml
+
+
+#vector install end
+
+
+
+loki grafana vector 停止方法
 # Vector を停止
 sudo systemctl stop vector
 
