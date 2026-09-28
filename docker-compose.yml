@@ -1,0 +1,12 @@
+services:
+  urbackup:
+    image: uroni/urbackup-server:latest  # ← 「uroni/」を追加！
+    container_name: urbackup-server
+    restart: unless-stopped
+    environment:
+      - TZ=Asia/Tokyo
+    volumes:
+      - ./data:/var/urbackup
+      - /urbackup-storage
+    network_mode: "host"
+

@@ -83,8 +83,14 @@ sleep 120
 sudo systemctl status urbackupclientbackend
 
 
+フルファイルバックアップ
 sudo urbackupclientctl start -f
 
+差分バックアップ
+sudo urbackupclientctl start -i
 
 
 loki grafana serverでUrBackupサーバーのロギングをする
+
+
+sudo docker logs urbackup-server
