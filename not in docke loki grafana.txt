@@ -1,0 +1,68 @@
+loki grafana setup
+
+#loki install start
+
+curl -O -L "https://github.com/grafana/loki/releases/download/v3.7.8/loki-linux-amd64.zip"
+sudo apt install unzip
+unzip loki-linux-amd64.zip
+sudo curl  -o /etc/loki/loki-local-config.yaml   https://raw.githubusercontent.com/grafana/loki/master/cmd/loki/loki-local-config.yaml
+
+ curl -O -L "https://github.com/grafana/loki/releases/download/v3.7.8/loki-linux-amd64.zip"
+
+sudo vi /etc/systemd/system/loki.service
+[Unit]
+Description=Grafana Loki
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/loki -config.file=/etc/loki/loki-local-config.yaml
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+
+#end /etc/systemd/system/loki.service
+
+#loki install end
+
+
+
+#grafana install start
+
+wget https://dl.grafana.com/grafana-enterprise/release/13.2.2/grafana-enterprise_13.2.2_34846740809_linux_amd64.deb
+sudo dpkg -i grafana-enterprise_13.2.2_34846740809_linux_amd64.deb
+sudo /bin/systemctl start grafana-server
+
+sudo ufw allow from 192.168.1.0/24 to any port 3000
+
+
+#grafana install end
+
+
+# status
+sudo systemctl status loki
+sudo systemctl status grafana-server
+
+
+# enable
+sudo systemctl enable loki
+sudo systemctl enable grafana-serve
+
+
+loki grafana 停止方法
+
+# Loki を停止
+sudo systemctl stop loki
+
+# Grafana を停止
+sudo systemctl stop grafana-server
+
+# disable
+sudo systemctl disable loki
+sudo systemctl disable grafana-serve
+
+# remove
+sudo apt remove loki
+
+sudo apt remove grafana-enterprise

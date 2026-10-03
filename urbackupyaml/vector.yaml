@@ -1,0 +1,40 @@
+# ==========================================
+# 1. SOURCES: UrBackupログの監視
+# ==========================================
+sources:
+  urbackup_logs:
+    type: "file"
+    include:
+      - "/var/log/urbackup/urbackup.log"
+    read_from: "end"
+
+# ==========================================
+# 2. TRANSFORMS: エラーキーワードのフィルタリング
+# ==========================================
+transforms:
+  filter_backup_errors:
+    type: "filter"
+    inputs:
+      - "urbackup_logs"
+    condition: |-
+      contains(string!(.message), "ERROR") || contains(string!(.message), "FAILED")
+
+# ==========================================
+# 3. SINKS: 別ホストのLokiへの転送設定
+# ==========================================
+sinks:
+  loki_output:
+    type: "loki"
+    inputs:
+      - "filter_backup_errors"
+    # ⚠️ 【重要】別ホストのLokiのIPアドレスとポートに変えてください
+    endpoint: "http://192.168.1.134:3100"
+    labels:
+      job: "urbackup"
+      service: "backup_monitor"
+      level: "error"
+      # クエリで絞り込みやすいようにホスト名（または識別子）を追加すると便利です
+      host: "urbackup-server-host"
+    encoding:
+      codec: "json"
+

@@ -1,42 +1,35 @@
-# リポジトリの更新と必要なパッケージのインストール
-sudo apt update
+id
+uid gid
 
-sudo apt upgrade
-
-sudo apt install -y ca-certificates curl gnupg
-
-# Docker公式のGPG鍵を追加
-sudo install -m 0755 -d /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
-sudo chmod a+r /etc/apt/keyrings/docker.gpg
-
-# リポジトリをAPTソースに追加
-echo \
-  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \
-  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
-  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-# Dockerのインストール
-sudo apt update
-sudo apt install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
-
-
-sudo chmod 777 /urbackup-storage
+sudo chown -R 1000:1000 /urbackup-storage
 
 
 cd ~/urbackup
-nano docker-compose.yml
+vi docker-compose.yml
+version: '3.8'
+
 services:
   urbackup:
-    image: uroni/urbackup-server:latest  # ← 「uroni/」を追加！
+    image: uroni/urbackup-server:latest
     container_name: urbackup-server
     restart: unless-stopped
     environment:
-      - TZ=Asia/Tokyo
+      - PUID=1000
+      - PGID=1000
+    ports:
+      - "55414:55414"
+      - "55415:55415"
+      - "35623:35623/udp"
     volumes:
-      - ./data:/var/urbackup
       - /urbackup-storage:/backups
+      - /urbackup-storage/urbackup_www:/var/urbackup
     network_mode: "host"
+
+# 1. ディレクトリの所有者を PUID/PGID（1000:1000）に変更する
+sudo chown -R 1000:1000 /urbackup-storage
+
+# 2. 所有者に読み書き・実行権限を与える
+sudo chmod -R 755 /urbackup-storage
 
 
 sudo docker compose up -d
@@ -63,34 +56,20 @@ urbackup://192.168.1.youraddresss
 
 
 
-sudo systemctl status urbackupclientbackend
 
-sudo vi /etc/default/urbackupclient
-INTERNET_ONLY=false
-INTERNET_SERVER=サーバーのIPアドレスまたはドメイン
-INTERNET_SERVER_PORT=55415
-INTERNET_AUTHKEY=サーバー側で発行された認証キー
-
-sudo urbackupclientctl set-settings -k internet_mode_enabled -v true -k internet_server -v 192.168.1.131 -k internet_server_port -v 55415 -k internet_authkey -v サーバー側で発行された認証キー
-
-sudo systemctl restart urbackupclientbackend
-
-
-sleep 120
-
-
-
-sudo systemctl status urbackupclientbackend
-
-
-フルファイルバックアップ
-sudo urbackupclientctl start -f
-
-差分バックアップ
-sudo urbackupclientctl start -i
-
-
-loki grafana serverでUrBackupサーバーのロギングをする
-
-
+# logs urbackup
 sudo docker logs urbackup-server
+
+# stop urbackup
+sudo docker stop urbackup-server
+
+# rm urbackup
+udo docker rm urbackup-server
+
+# データベースと設定の削除
+sudo rm -rf /var/urbackup/*
+
+
+# バックアップデータの削除
+sudo rm -rf /urbackup-storage/*
+

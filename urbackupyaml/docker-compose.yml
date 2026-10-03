@@ -1,0 +1,28 @@
+services:
+  urbackup:
+    image: uroni/urbackup-server:latest
+    container_name: urbackup-server
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+    ports:
+      - "55414:55414"
+      - "55415:55415"
+      - "35623:35623/udp"
+    volumes:
+      - /urbackup-storage:/backups
+      - /urbackup-storage/urbackup_www:/var/urbackup
+
+  vector:
+    image: timberio/vector:0.34.X-debian  # 必要に応じて最新バージョンに調整してください
+    container_name: vector-monitor
+    restart: unless-stopped
+    volumes:
+      # Vectorの設定ファイルをマウント
+      - ./vector.yaml:/etc/vector/vector.yaml:ro
+      # UrBackupのログファイルを読み取り専用(ro)で共有
+      - /urbackup-storage/urbackup_www:/var/log/urbackup:ro
+    depends_on:
+      - urbackup
+

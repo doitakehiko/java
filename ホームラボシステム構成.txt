@@ -1,16 +1,69 @@
 Linux ubuntu
 以下をDockerで動かす
 web application server  : Nginx php laravel multi database
-source database server  : mysql 
-replica database server : mysql 
+source database server  : mysql
+replica database server : mysql
+
 logging server          : loki grafana
 logging server以外vectorを入れてログを収集する
 
+backup server		: UrBackup
+
+sql proxyserver		: proxysql
+
+
 Dockerに入れずにosが直で動かす
 Orchestration server    : Kubernetes
+local backup		: timeshift
 
-backup server
-Bareos
 
 windows
 intranet client         : c#
+
+
+backup
+ソースコードとデータベースのスキーマとデータはUrBackupで保存
+他はtimeshiftで設定を保存
+web application server  : timeshift and UrBackup
+source database server  : timeshift and UrBackup
+replica database server : timeshift
+logging server          : timeshift
+backup server		: timeshift
+sql proxyserver		: timeshift
+windows			: UrBackup image and file backup
+
+logging
+web application server  : 
+source database server  : 
+replica database server : 
+logging server          : 
+backup server		: 
+sql proxyserver		: 
+windows			: 
+
+
+ご提示いただいたインフラ構成案に基づき、空欄となっている各サーバー・クライアントにおける「Logging（ログ収集の方針とVector/Lokiの設定イメージ）」を整理しました。
+Vectorをエージェントとして各コンテナ・OSに配置し、中央のLoki（Logging server）へ集約する構成の設計図となります。
+------------------------------
+## 📋 Logging 構成定義
+
+| サーバー / クライアント | ログ収集方針（ソース） | Vectorの役割・設定イメージ |
+|---|---|---|
+| web application server (Nginx / PHP / Laravel) | ・Nginx: アクセスログ、エラーログ ・Laravel: アプリケーションログ（storage/logs/*.log または stdout） | ・NginxとLaravelのログをVectorの file または docker_logs ソースで監視。 ・Nginxのアクセスログをパース（Lokiでの集計用）。 ・loki シンクへ転送。 |
+| source database server (MySQL - 主系) | ・MySQL: エラーログ、スロークエリログ（必要に応じて一般クエリログ） | ・MySQLコンテナ内のログファイル、またはホスト側へマウントしたログファイルをVectorで監視。 ・スロークエリなどのマルチライン（複数行）ログを結合処理。 ・loki シンクへ転送。 |
+| replica database server (MySQL - 副系) | ・MySQL: エラーログ、スロークエリログ ・レプリケーションエラーログ | ・Source DBと同様にVectorを配置。 ・レプリケーションステータスやI/Oスレッドのエラーを検知できるようエラーログを重点監視。 |
+| logging server (Loki / Grafana) | ・Loki/Grafana自体の内部ログ | ・Vectorは入れない（要件通り）。 ・LokiとGrafanaのコンテナログは、必要に応じてLoki自身が直接 internal ログとして読み込むか、Dockerのデフォルトログで管理。 |
+| backup server (UrBackup) | ・UrBackup: バックアップジョブ実行ログ、システムエラーログ | ・UrBackupコンテナ（またはホスト）のログファイルをVectorで監視。 ・バックアップの成否（ERROR や FAILED キーワード）を監視し、loki シンクへ転送。 |
+| sql proxyserver (ProxySQL) | ・ProxySQL: システムログ（proxysql.log）、監査ログ（Audit log） | ・ProxySQLのログファイルをVectorで監視。 ・ルーティングエラーや接続切断エラーなどをパースし、loki シンクへ転送。 |
+| windows (Intranet client - C#) | ・C#アプリ: アプリケーション固有ログ（NLogやSerilogなどが出力するファイル） ・Windows: イベントログ（必要に応じて） | ・Windows用Vector（Winlogbeatの代替等）をサービスとして常駐させる。 ・C#アプリが出力するログファイル、またはWindowsイベントログを収集し、ネットワーク経由でLinux上の loki シンクへ転送。 |
+
+------------------------------
+## 💡 構築時のワンポイントアドバイス
+
+   1. マルチラインログの処理（Laravel / MySQL / C#）
+   Laravelの例外スタックトレースやMySQLのスロークエリ、C#のエラーログは複数行（Multi-line）にまたがります。Vectorの multiline 変換フィルター（remap や reduce）を使って、1つのログイベントとして結合してからLokiに送るよう設定すると、Grafanaで見やすくなります。
+   2. Lokiのデータ永続化
+   Logging server自体はTimeshiftで設定を保存する方針ですが、蓄積されるログデータ自体はボリュームマウントなどを用いて、Timeshiftの対象外（データ専用領域）に永続化させる設計を推奨します。
+
+このLogging構成をベースに、Docker Composeの具体的な記述サンプル（VectorからLokiへの接続設定など）や、UrBackup/Timeshiftの具体的なバックアップ対象ディレクトリの選定について詳しく進めますか？
+

@@ -1,0 +1,29 @@
+urbackupclientbackend not in docker
+
+sudo systemctl status urbackupclientbackend
+
+sudo vi /etc/default/urbackupclient
+INTERNET_ONLY=false
+INTERNET_SERVER=サーバーのIPアドレスまたはドメイン
+INTERNET_SERVER_PORT=55415
+INTERNET_AUTHKEY=サーバー側で発行された認証キー
+
+sudo urbackupclientctl set-settings -k internet_mode_enabled -v true -k internet_server -v 192.168.1.131 -k internet_server_port -v 55415 -k internet_authkey -v サーバー側で発行された認証キー
+
+sudo systemctl restart urbackupclientbackend
+
+
+sleep 120
+
+
+
+sudo systemctl status urbackupclientbackend
+
+
+フルファイルバックアップ
+sudo urbackupclientctl start -f
+
+差分バックアップ
+sudo urbackupclientctl start -i
+
+

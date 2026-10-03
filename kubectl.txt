@@ -29,3 +29,11 @@ sleep 10
 sudo kubectl get pods -n test-env
 STATUS 
 Running
+
+sudo kubectl logs deployment/web-app -c urbackup-client -n test-env
+
+
+ sudo kubectl delete pods --all -A
+
+sudo kubectl delete pod vector-8tpd2 -n test-env
+
